@@ -4,7 +4,7 @@
 //Import React
 import React from 'react';
 
-//Import all required component
+
 import { View, Image, TouchableOpacity } from 'react-native';
 
 const NavigationDrawerHeader = props => {
@@ -20,7 +20,7 @@ const NavigationDrawerHeader = props => {
             uri:
               'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png',
           }}
-          style={{ width: 25, height: 25, marginLeft: 5 }}
+          style={{ width: 25, height: 25, marginRight: 5  }}
         />
       </TouchableOpacity>
     </View>

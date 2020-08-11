@@ -23,13 +23,13 @@ const SplashScreen = props => {
           value === null ? 'Auth' : 'DrawerNavigationRoutes'
         )
       );
-    }, 1000);
+    }, 0);
   }, []);
 
   return (
     <View style={styles.container}>
       <Image
-        source={require('../Image/aboutreact.png')}
+        source={require('./Image/logo.png')}
         style={{ width: '50%',  resizeMode: 'contain', margin: 30 }}
       />
       <ActivityIndicator

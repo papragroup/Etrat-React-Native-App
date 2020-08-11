@@ -3,6 +3,7 @@
 
 //Import React and Hook we needed
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 //Import all required component
 import {
@@ -17,7 +18,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import Loader from './Component/Loader';
 
 const LoginScreen = props => {
@@ -29,11 +29,11 @@ const LoginScreen = props => {
   const handleSubmitPress = () => {
     setErrortext('');
     if (!userName) {
-      alert('Please fill Email');
+      alert('لطفا نام کاربری را وارد کنید');
       return;
     }
     if (!userPassword) {
-      alert('Please fill Password');
+      alert('لطفا پسورد را وارد کنید');
       return;
     }
     setLoading(true);
@@ -50,56 +50,45 @@ const LoginScreen = props => {
       .then(responseJson => {
         //Hide Loader
         setLoading(false);
-      if (responseJson.status >= 400  ) {
-        
-        setErrortext('نام کاربری یا کلمه عبور اشتباه است!');
-     
-          
-        
+        if (responseJson.status >= 400) {
+
+          setErrortext('نام کاربری یا کلمه عبور اشتباه است!');
+
+
+
         } else {
           props.navigation.navigate('HomeScreen');
         }
-       
-      
-        
-        console.log(responseJson);
-       
-       
-        
-        // If server response message same as Data Matched
-        // if (responseJson.status == 200) {
-        //   AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
-        //   console.log(responseJson.data[0].user_id);
-          // props.navigation.navigate('HomeScreen');
-        
-        // } else {
-        //   setErrortext('Please check your email id or password');
-        //   console.log('Please check your email id or password');
-        // }
+        const token = responseJson.id_token;
+        mergeUsers(responseJson);
+
       })
       .catch(error => {
         //Hide Loader
         setLoading(false);
         console.error(error);
       });
+
+
   };
+
+  mergeUsers = async (token) => {
+
+    //save first user
+    await AsyncStorage.setItem('@MyApp_user', JSON.stringify(token))
+
+  }
+
 
   return (
     <View style={styles.mainBody}>
-     
-     
-     {/* <ImageBackground style={styles.backgroundImage} source={require('../Screen/Image/LoginBackground.jpg')}> */}
-      
       <Loader loading={loading} />
-
       <ScrollView keyboardShouldPersistTaps="handled">
-     
         <View style={{ marginTop: 100 }}>
-        {/* <ImageBackground style={styles.backgroundImage} source={require('./Image/BackgroundLogin.jpg')}> */}
           <KeyboardAvoidingView enabled>
             <View style={{ alignItems: 'center' }}>
               <Image
-                source={require('../Image/aboutreact.png')}
+                source={require('./Image/logonotitle.png')}
                 style={{
                   width: '50%',
                   height: 150,
@@ -112,12 +101,11 @@ const LoginScreen = props => {
               <TextInput
                 style={styles.inputStyle}
                 onChangeText={UserName => setUserName(UserName)}
-                // underlineColorAndroid="#FFFFFF"
-                placeholder="نام کاربری" //dummy@abc.com
+                placeholder="نام کاربری"
                 placeholderTextColor="#F6F6F7"
                 autoCapitalize="none"
                 keyboardType="default"
-              
+
                 returnKeyType="next"
                 onSubmitEditing={() =>
                   this._passwordinput && this._passwordinput.focus()
@@ -129,13 +117,9 @@ const LoginScreen = props => {
               <TextInput
                 style={styles.inputStyle}
                 onChangeText={UserPassword => setUserPassword(UserPassword)}
-                // underlineColorAndroid="#FFFFFF"
-                placeholder="کلمه عبور" 
+                placeholder="کلمه عبور"
                 placeholderTextColor="#F6F6F7"
                 keyboardType="default"
-                ref={ref => {
-                  this._passwordinput = ref;
-                }}
                 onSubmitEditing={Keyboard.dismiss}
                 blurOnSubmit={false}
                 secureTextEntry={true}
@@ -153,14 +137,11 @@ const LoginScreen = props => {
             <Text
               style={styles.registerTextStyle}
               onPress={() => props.navigation.navigate('RegisterScreen')}>
-            ثبت نام کنید!
+              ثبت نام کنید!
             </Text>
           </KeyboardAvoidingView>
-     
-          
         </View>
       </ScrollView>
-      {/* </ImageBackground> */}
     </View>
   );
 };
@@ -171,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#1e5c2e',
-    textAlign:'right',
+    textAlign: 'right',
   },
 
   SectionStyle: {
@@ -208,7 +189,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 0,
     borderColor: 'white',
-    textAlign:'right'
+    textAlign: 'right'
   },
   registerTextStyle: {
     color: '#FFFFFF',

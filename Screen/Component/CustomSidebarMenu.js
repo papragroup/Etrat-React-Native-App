@@ -11,15 +11,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 const CustomSidebarMenu = props => {
   let items = [
     {
-      navOptionName: 'Home Screen',
+      navOptionName: 'صفحه نخست',
       screenToNavigate: 'HomeScreen',
     },
     {
-      navOptionName: 'Setting Screen',
-      screenToNavigate: 'SettingsScreen',
+      navOptionName: 'پرداخت',
+      screenToNavigate: 'PaymentType',
     },
     {
-      navOptionName: 'Logout',
+      navOptionName: 'خروج',
       screenToNavigate: 'logout',
     },
   ];
@@ -28,17 +28,17 @@ const CustomSidebarMenu = props => {
     if (screenToNavigate == 'logout') {
       props.navigation.toggleDrawer();
       Alert.alert(
-        'Logout',
-        'Are you sure? You want to logout?',
+        'خروج',
+        'مطمئنید؟ می خواهید خارج شوید؟',
         [
           {
-            text: 'Cancel',
+            text: 'خیر',
             onPress: () => {
               return null;
             },
           },
           {
-            text: 'Confirm',
+            text: 'بله',
             onPress: () => {
               AsyncStorage.clear();
               props.navigation.navigate('Auth');
@@ -100,13 +100,13 @@ const stylesSidebar = StyleSheet.create({
     paddingTop: 40,
     color: 'white',
     
+    
   },
   profileHeader: {
     flexDirection: 'row',
     backgroundColor: '#1e5c2e',
     padding: 15,
-    textAlign: 'center',
-    
+    textAlign: 'center',    
   },
   profileHeaderPicCircle: {
     width: 60,

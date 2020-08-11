@@ -8,10 +8,8 @@ const HomeScreen = props => {
     <View style={styles.container}>
       <ImageBackground style={styles.backgroundImage} source={require('../Image/Background.jpg')}>
 
-      <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
-   <Image 
-   
-   
+      <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Transaction')}>
+   <Image
         source={require('../Image/done.png')}
         style={{
           width: '100%',
@@ -31,9 +29,6 @@ const HomeScreen = props => {
         }}
      /> 
      </TouchableOpacity>
-      
-      
-
       </ImageBackground>
     
     </View>

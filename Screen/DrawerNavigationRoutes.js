@@ -55,7 +55,7 @@ const TripleActivity_StackNavigator = createStackNavigator({
       headerTintColor: '#fff',
     }),
   },
-});
+}); 
 
 const DrawerNavigatorRoutes = createDrawerNavigator(
   {
