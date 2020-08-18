@@ -14,10 +14,10 @@ const CustomSidebarMenu = props => {
       navOptionName: 'صفحه نخست',
       screenToNavigate: 'HomeScreen',
     },
-    {
-      navOptionName: 'پرداخت',
-      screenToNavigate: 'PaymentType',
-    },
+    // {
+    //   navOptionName: 'پرداخت',
+    //   screenToNavigate: 'Payment',
+    // },
     {
       navOptionName: 'خروج',
       screenToNavigate: 'logout',

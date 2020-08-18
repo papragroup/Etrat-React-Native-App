@@ -1,39 +1,41 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View, TextInput, Button, Alert, Linking, Style, Image } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Alert,
+  Linking,
+  Style,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  ImageBackground,
+} from "react-native";
 import { Value } from "react-native-reanimated";
 import AsyncStorage from "@react-native-community/async-storage";
-
 export default class Payment extends Component {
-
-
   constructor(props) {
     super(props)
     this.state = {
       TextInputValue: '',
-      name: 'Amount',
-      id: "count"
+      
     }
+    
   }
-
-
-
+  
+  
   buttonClickListener = () => {
     this.Hello(this.getTokenBackend)
-    // var url='http://192.168.101.221:8080/gateway/payment?amount='.concat(TextInputValue).concat('&token=').concat(token);
-    // console.log(url);
-
-
-
-
-
-
-
-
   }
   getTokenBackend = (token) => {
+    const { TextInputValue } = this.state;
     var header = 'Bearer '.concat(token);
     console.log('Bearer '.concat(token));
-    fetch('http://192.168.101.221:8080/api/transactions/code'.concat('?amount=').concat('1000').concat('&type-id=00'), {
+    fetch('http://192.168.101.221:8080/api/transactions/code'.concat('?amount=').concat(TextInputValue).concat('&type-id= 00'), {
       method: 'GET',
       headers: {
         'Authorization': header,
@@ -42,8 +44,7 @@ export default class Payment extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        // console.log(responseJson);
-        var url = 'http://192.168.101.221:8080/gateway/payment?code='.concat(responseJson.token).
+        var url = 'http://192.168.101.221:8080/gateway/payment?code='.concat(responseJson.token)
         Linking.openURL(url);
         console.log(responseJson);
         this.setState({
@@ -90,65 +91,250 @@ export default class Payment extends Component {
       TextInputValue: '50000'
     })
   }
-
-
+  onPressButtonFive = () => {
+    this.setState({
+      TextInputValue: '60000'
+    })
+  }
   render() {
     return (
-      <View style={styles.container}
+
+      <View style={styles.mainBody}>
 
 
-        name="form" id='samanpeyment' action='https://sep.shaparak.ir/payment.aspx' method='post'
 
-      >
-        <Image
-          source={require('../Image/logonotitle.png')}
-          style={{
-            width: '50%',
-            height: 150,
-            resizeMode: 'contain',
-            margin: 30,
-          }}
-        />
+        <View style={styles.SectionStyle}>
+          <KeyboardAvoidingView enabled>
+            <ScrollView keyboardShouldPersistTaps="handled">
+              <View style={styles.Card}>
+            
+              
+                <Image style={styles.NozooratCardIcon}
 
-        <TextInput
+                  source={require('../Image/PaymentNozoorat/NozooratCardIcon.png')}
+                >
+                </Image>
+                <Text style={styles.CardText}>وجوهات شرعی</Text>
 
-          style={{ height: 45, width: "95%", borderColor: "gray", borderWidth: 2 }}
-          placeholder="مبلغ دلخواه"
-          onChangeText={TextInputValue => this.setState({ TextInputValue })}
-          underlineColorAndroid="transparent"
-        >
-          {this.state.TextInputValue}
-        </TextInput>
-        <Text style={styles.textButtonStyle} onPress={this.onPress} >10000</Text>
-        <Text style={styles.textButtonStyle} onPress={this.onPressButton} >20000</Text>
-        <Text style={styles.textButtonStyle} onPress={this.onPressButtonTow} >30000</Text>
-        <Text style={styles.textButtonStyle} onPress={this.onPressButtonThree} >40000</Text>
-        <Text style={styles.textButtonStyle} onPress={this.onPressButtonFour}>50000</Text>
+              </View>
 
-        <View style={[{ width: "93%", margin: 15, backgroundColor: "red" }]}>
-          <Button
-            onPress={this.buttonClickListener}
-            title="Send"
-            color="#00B0FF"
-          />
+              <Text
+
+                style={styles.SelectText}>
+                مبلغ خود را انتخاب کنید (تومان)
+</Text>
+
+              <TextInput
+        
+                style={styles.inputStyle}
+                // Adding hint in TextInput using Placeholder option.
+                placeholder="مبلغ دلخواه"
+                //set the value in state.
+                onChangeText={TextInputValue => this.setState({ TextInputValue })}
+                // Making the Under line Transparent.
+
+              >
+
+
+                {this.state.TextInputValue}
+              </TextInput>
+              <View
+                style={styles.AmountOneRow}
+              >
+
+                <TouchableOpacity
+                  onPress={this.onPress}
+                  style={styles.AmountButton}
+                  activeOpacity={0.5}>
+                  <Text style={styles.AmountButtonTextStyle}>10,000</Text>
+                  <Text style={styles.AmountButtonTextStyle}>تومان</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.onPressButton}
+                  style={styles.AmountButton}
+                  activeOpacity={0.5}>
+                  <Text style={styles.AmountButtonTextStyle}>20,000</Text>
+                  <Text style={styles.AmountButtonTextStyle}>تومان</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.onPressButtonTow}
+                  style={styles.AmountButton}
+                  activeOpacity={0.5}>
+                  <Text style={styles.AmountButtonTextStyle}>30,000</Text>
+                  <Text style={styles.AmountButtonTextStyle}>تومان</Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={styles.AmountTwoRow}
+              >
+
+                <TouchableOpacity
+                  style={styles.AmountButton}
+                  onPress={this.onPressButtonThree}
+                  activeOpacity={0.5}>
+                  <Text style={styles.AmountButtonTextStyle}>40,000</Text>
+                  <Text style={styles.AmountButtonTextStyle}>تومان</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.onPressButtonFour}
+                  style={styles.AmountButton}
+                  activeOpacity={0.5}>
+                  <Text style={styles.AmountButtonTextStyle}>50,000</Text>
+                  <Text style={styles.AmountButtonTextStyle}>تومان</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.onPressButtonFive}
+                  style={styles.AmountButton}
+                  activeOpacity={0.5}>
+                  <Text style={styles.AmountButtonTextStyle}>60,000</Text>
+                  <Text style={styles.AmountButtonTextStyle}>تومان</Text>
+                </TouchableOpacity>
+
+              </View>
+              <TouchableOpacity
+                style={styles.buttonStyle}
+                activeOpacity={0.5}
+                onPress={this.buttonClickListener}>
+                <Text style={styles.buttonTextStyle}>پرداخت</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </KeyboardAvoidingView>
+
         </View>
+
+
+
+
+
+
       </View>
-    );
+    )
   }
-}
+
+};
+
 
 const styles = StyleSheet.create({
-  container: {
+  mainBody: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#e5e5e5",
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    textAlign: 'right',
+  },
+
+  SectionStyle: {
+    flex: 1,
+    height: 40,
+    marginLeft: 20,
+    marginRight: 20,
+    margin: 6,
+  },
+  Card: {
+    textAlign: 'center',
+    alignItems: 'center',
+    flex: 1,
+    width: '100%',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    backgroundColor: '#f5cf53',
+    shadowColor: "#53535353",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.50,
+    shadowRadius: 3,
+    elevation: 1.5,
 
   },
-  headerText: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    fontWeight: "bold"
+  SelectText: {
+    margin:12,
+    flex: 1,
+    textAlign: 'right',
+    color: '#aaaaaa',
+    fontSize: 15
   },
+  inputStyle: {
+    margin:12,
+    backgroundColor: '#fff',
+    borderWidth: 0,
+    borderRadius: 7,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    shadowColor: "#53535353",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.50,
+    shadowRadius: 3,
+    elevation: 1.5,
+  },
+  AmountOneRow: {
+    flexDirection: 'row',
+  },
+  AmountTwoRow: {
+    flexDirection: 'row',
+  },
+  AmountButton: {
+    margin:12,
+    textAlign: 'center',
+    alignItems: 'center',
+    flex: 1,
+    width: '100%',
+    height: 110,
+    backgroundColor: '#fff',
+    borderRadius: 7,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    backgroundColor: '#fff',
+    flex: 1,
+    color: '#000',
+    shadowColor: "#53535353",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.50,
+    shadowRadius: 3,
+    elevation: 1.5,
+  },
+  AmountButtonTextStyle: {
+    color: '#1e5c2e',
+    fontSize: 20,
+    marginTop: 15
+  },
+  buttonStyle: {
+    margin:12,
+    backgroundColor: '#26d142',
+    borderWidth: 0,
+    color: '#ffffff',
+    alignItems: 'center',
+    borderRadius: 7,
+    padding: 10,
+    marginTop: 27,
+  },
+  buttonTextStyle: {
+    color: '#ffffff',
+    fontSize: 25,
+  },
+
+  NozooratCardIcon: {
+    marginRight: 'auto',
+  },
+
+  CardText:{
+    color:'#fff',
+    fontSize:30,
+    marginBottom:10
+  },
+  BackIcon:{
+    marginRight:'auto',
+    margin:3,
+  }
+
 });

@@ -23,7 +23,7 @@ const SplashScreen = props => {
           value === null ? 'Auth' : 'DrawerNavigationRoutes'
         )
       );
-    }, 0);
+    }, 5000);
   }, []);
 
   return (

@@ -88,10 +88,10 @@ const LoginScreen = props => {
           <KeyboardAvoidingView enabled>
             <View style={{ alignItems: 'center' }}>
               <Image
-                source={require('./Image/logonotitle.png')}
+                source={require('./Image/logo.png')}
                 style={{
                   width: '50%',
-                  height: 150,
+                  height: 230,
                   resizeMode: 'contain',
                   margin: 30,
                 }}
@@ -134,11 +134,11 @@ const LoginScreen = props => {
               onPress={handleSubmitPress}>
               <Text style={styles.buttonTextStyle}>ورود</Text>
             </TouchableOpacity>
-            <Text
+            {/* <Text
               style={styles.registerTextStyle}
               onPress={() => props.navigation.navigate('RegisterScreen')}>
               ثبت نام کنید!
-            </Text>
+            </Text> */}
           </KeyboardAvoidingView>
         </View>
       </ScrollView>
@@ -164,29 +164,27 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   buttonStyle: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 0,
-    color: '#1e5c2e',
-    borderColor: '#7DE24E',
-    height: 40,
-    alignItems: 'center',
-    borderRadius: 30,
     marginLeft: 35,
     marginRight: 35,
-    marginTop: 20,
-    marginBottom: 20,
+    backgroundColor: '#ffffff',
+    borderWidth: 0,
+    color: '#ffffff',
+    alignItems: 'center',
+    borderRadius: 7,
+    padding: 10,
+    marginTop: 27,
   },
+  
   buttonTextStyle: {
     color: '#1e5c2e',
-    paddingVertical: 10,
-    fontSize: 16,
+    fontSize: 25,
   },
   inputStyle: {
     flex: 1,
     color: 'white',
     paddingLeft: 15,
     paddingRight: 15,
-    borderWidth: 2,
+    borderBottomWidth: 2,
     borderRadius: 0,
     borderColor: 'white',
     textAlign: 'right'

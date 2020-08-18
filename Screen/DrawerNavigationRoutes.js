@@ -10,7 +10,6 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 
 //Import External Screens
 import HomeScreen from './drawerScreens/HomeScreen';
-import PaymentType from './drawerScreens/PaymentType';
 import Payment from './drawerScreens/Payment';
 import SettingsScreen from './drawerScreens/SettingsScreen';
 import CustomSidebarMenu from './Component/CustomSidebarMenu';
@@ -30,22 +29,22 @@ const FirstActivity_StackNavigator = createStackNavigator({
   },
 });
 
-const SecondActivity_StackNavigator = createStackNavigator({
+// const SecondActivity_StackNavigator = createStackNavigator({
+//   First: {
+//     screen: PaymentType,
+//     // navigationOptions: ({ navigation }) => ({
+//     //   title: 'انتخاب نوع پرداخت',
+//     //   headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+//     //   headerStyle: {
+//     //     backgroundColor: '#1e5c2e',
+//     //   },
+//     //   headerTintColor: '#fff',
+//     // }),
+//   },
+// });
+const SecoundActivity_StackNavigator = createStackNavigator({
   First: {
-    screen: PaymentType,
-    navigationOptions: ({ navigation }) => ({
-      title: 'انتخاب نوع پرداخت',
-      headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#1e5c2e',
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
-const TripleActivity_StackNavigator = createStackNavigator({
-  First: {
-    screen: Payment,
+    screen:Payment,
     navigationOptions: ({ navigation }) => ({
       title: 'پرداخت',
       headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
@@ -57,26 +56,24 @@ const TripleActivity_StackNavigator = createStackNavigator({
   },
 }); 
 
+
 const DrawerNavigatorRoutes = createDrawerNavigator(
   {
     HomeScreen: {
       screen: FirstActivity_StackNavigator,
       navigationOptions: {
         drawerLabel: 'Home Screen',
-      },
-    },
-    PaymentType: {
-      screen: SecondActivity_StackNavigator,
-      navigationOptions: {
-        drawerLabel: 'Setting Screen',
+        headerShown: false,
       },
     },
     Payment: {
-      screen: TripleActivity_StackNavigator,
+      screen: SecoundActivity_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'Setting Screen',
+        drawerLabel: 'Payment',
       },
     },
+  
+    
   },
   {
     contentComponent: CustomSidebarMenu,
