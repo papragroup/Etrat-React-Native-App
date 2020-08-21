@@ -10,7 +10,11 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 
 //Import External Screens
 import HomeScreen from './drawerScreens/HomeScreen';
-import Payment from './drawerScreens/Payment';
+import SadaghatPayment from './drawerScreens/SadaghatPayment';
+import PaymentType from './drawerScreens/PaymentType';
+import TransactionList from './drawerScreens/TransactionList';
+import NozooratPayment from './drawerScreens/NozooratPayment';
+import VojoohatPayment from './drawerScreens/VojoohatPayment';
 import SettingsScreen from './drawerScreens/SettingsScreen';
 import CustomSidebarMenu from './Component/CustomSidebarMenu';
 import NavigationDrawerHeader from './Component/NavigationDrawerHeader';
@@ -20,7 +24,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
       title: 'صفحه نخست',
-      headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#1e5c2e',
       },
@@ -44,10 +48,10 @@ const FirstActivity_StackNavigator = createStackNavigator({
 // });
 const SecoundActivity_StackNavigator = createStackNavigator({
   First: {
-    screen:Payment,
+    screen:SadaghatPayment,
     navigationOptions: ({ navigation }) => ({
-      title: 'پرداخت',
-      headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      title: 'صدقات پرداخت',
+      headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#1e5c2e',
       },
@@ -55,6 +59,58 @@ const SecoundActivity_StackNavigator = createStackNavigator({
     }),
   },
 }); 
+const TripleActivity_StackNavigator = createStackNavigator({
+  First: {
+    screen: PaymentType,
+    navigationOptions: ({ navigation }) => ({
+      title: 'انتخاب نوع پرداخت',
+      headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#1e5c2e',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+const FourActivity_StackNavigator = createStackNavigator({
+  First: {
+    screen: TransactionList,
+    navigationOptions: ({ navigation }) => ({
+      title: ' لیست تراکنش ها',
+      headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#1e5c2e',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+const FiveActivity_StackNavigator = createStackNavigator({
+  First: {
+    screen: NozooratPayment,
+    navigationOptions: ({ navigation }) => ({
+      title: ' پرداخت نذورات ',
+      headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#1e5c2e',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+const SixActivity_StackNavigator = createStackNavigator({
+  First: {
+    screen: VojoohatPayment,
+    navigationOptions: ({ navigation }) => ({
+      title: ' پرداخت وجوهات شرعی ',
+      headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#1e5c2e',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
 
 
 const DrawerNavigatorRoutes = createDrawerNavigator(
@@ -66,10 +122,34 @@ const DrawerNavigatorRoutes = createDrawerNavigator(
         headerShown: false,
       },
     },
-    Payment: {
+    SadaghatPayment: {
       screen: SecoundActivity_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'Payment',
+        drawerLabel: 'SadaghatPayment',
+      },
+    },
+    PaymentType: {
+      screen: TripleActivity_StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'PaymentType',
+      },
+    },
+    TransactionList: {
+      screen: FourActivity_StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'TransactionList',
+      },
+    },
+    NozooratPayment: {
+      screen: FiveActivity_StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'NozooratPayment',
+      },
+    },
+    VojoohatPayment: {
+      screen: SixActivity_StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'VojoohatPayment',
       },
     },
   

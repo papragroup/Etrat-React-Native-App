@@ -2,48 +2,16 @@
 import React from 'react';
 
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-// import { PersianNumber } from 'react-persian';
 
-const HomeScreen = props => {
+const PaymenType = props => {
   global.currentScreenIndex = 'HomeScreen';
   return (
     <View style={styles.mainBody}>
 
 
-
       <View style={styles.SectionStyle}>
-        
         <ScrollView keyboardShouldPersistTaps="handled">
-        <View style={styles.Card}>
-        <View style={styles.HeaderCard}>
-          <Text style={{ color: '#cccccc', fontSize: 15, textAlign: 'right', margin: 5 }}>تاریخ:</Text>
-        <TouchableOpacity
-                  onPress={() => props.navigation.navigate('TransactionList')}
-                >
-                  <Text style={{ color: '#cccccc', fontSize: 15, textAlign: 'right', margin: 5 }}>حساب کاربری</Text>
-                </TouchableOpacity>
-                </View>
-            <Text style={{textAlign:'center', fontSize:18,color:'#cccccc',marginTop:5 }}>مجموع پرداخت ها</Text>
-            <View style={styles.TotalPayment}>
-            
-              <Text style={styles.AmountTotalPayment}>1,000,000
-              <Text style={{fontFamily:'Yekan',textAlign:'center', fontSize:18,color:'#ffffff'}} >ریال</Text>
-              </Text>
-              
-            </View>
-            
-          
-        </View>
-          <View style={styles.RowStyle}>
-            <TouchableOpacity onPress={() => props.navigation.navigate('PaymentType')} >
-            
-              <Text style={{ color: '#1e5c2e', marginTop: 6, fontSize: 20, }}>همه موارد</Text>
-            </TouchableOpacity>
-
-            <Text style={{fontFamily:'Yekan', color: '#1e5c2e', fontSize: 32 }}>پرداخت</Text>
-
-          </View>
-
+          <Text style={styles.HeaderText}>پرداخت</Text>
           <Text
 
             style={styles.SelectText}>
@@ -90,7 +58,7 @@ const HomeScreen = props => {
     </View>
   );
 };
-export default HomeScreen;
+export default PaymenType;
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -98,7 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
     textAlign: 'right',
-    
 
   },
   SectionStyle: {
@@ -107,27 +74,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginLeft: 35,
     marginRight: 35,
-  },
-  Card: {
-    flex: 1,
-    width: '100%',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    borderWidth: 1,
-    borderColor: 'transparent',
-    backgroundColor: '#1e5c2e',
-    shadowColor: "#535353",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.00,
-
-    elevation: 15,
-    
-
-
   },
   Button: {
     margin: 12,
@@ -147,29 +93,24 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.39,
     shadowRadius: 8.30,
-
+    
     elevation: 10
 
 
 
   },
-  RowStyle: {
+  HeaderText: {
     margin: 12,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-
+    textAlign: 'center',
+    color: '#1e5c2e',
+    fontSize: 40,
   },
   ButtonTextStyle: {
-    
     color: '#1e5c2e',
     fontSize: 25,
     textAlign: 'center',
     fontSize: 30,
     width: '100%',
-    
-
-
-
   },
   ButtonIconStyle: {
     marginRight: 'auto',
@@ -180,30 +121,11 @@ const styles = StyleSheet.create({
   },
   SelectText: {
     margin: 12,
+    marginTop: 27,
     color: '#aaaaaa',
     fontSize: 15,
   },
-  HeaderCard:{
-    margin: 12,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  TotalPayment:{
-    margin: 12,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    flexDirection: 'row'
-  },
-  AmountTotalPayment:{
-    color: '#ffffff',
-    textAlign: 'center',
-    fontSize: 30,
-    width: '100%',
-  },
-  RialTotalPayment:{
-    marginRight:'auto',
-    color:'#ffffff'
-  }
 
 });
+
 

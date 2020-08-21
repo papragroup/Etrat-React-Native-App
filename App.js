@@ -13,6 +13,8 @@ import SplashScreen from './Screen/SplashScreen';
 import LoginScreen from './Screen/LoginScreen';
 import RegisterScreen from './Screen/RegisterScreen';
 import DrawerNavigationRoutes from './Screen/DrawerNavigationRoutes';
+import TransactionList from './Screen/drawerScreens/TransactionList';
+
 
 const Auth = createStackNavigator({
   //Stack Navigator for Login and Sign up Screen
