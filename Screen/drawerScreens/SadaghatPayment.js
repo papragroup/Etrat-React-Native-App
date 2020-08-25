@@ -28,7 +28,6 @@ export default class SadaghatPayment extends Component {
       data:'',
       user:''
     }
-    console.log("test");
     this.initUser()
   }
 
@@ -37,7 +36,7 @@ this.setState({user:userdata})
   }
   fetchdata(token){
     var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.195:8085/api/user',{
+    fetch('http://192.168.101.221:8080/api/user',{
         method: 'GET',
         headers: {
             'Authorization': header,
@@ -68,7 +67,7 @@ this.setState({user:userdata})
   getTokenBackend = (token) => {
     const { TextInputValue } = this.state;
     var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.195:8085/api/transactions/code'.concat('?amount=').concat(TextInputValue).concat('&type-id=14'), {
+    fetch('http://192.168.101.221:8080/api/transactions/code'.concat('?amount=').concat(TextInputValue).concat('&type-id=14'), {
       method: 'GET',
       headers: {
         'Authorization': header,
@@ -77,7 +76,7 @@ this.setState({user:userdata})
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        var url = 'http://192.168.101.195:8085/gateway/payment?code='.concat(responseJson.token)
+        var url = 'http://192.168.101.221:8080/gateway/payment?code='.concat(responseJson.token)
         Linking.openURL(url);
 
         this.setState({
@@ -147,11 +146,20 @@ this.setState({user:userdata})
           <KeyboardAvoidingView enabled>
             <ScrollView keyboardShouldPersistTaps="handled">
               <View style={styles.Card}>
-               
                 <TouchableOpacity
+               style={styles.Profile}
                   onPress={() => this.props.navigation.navigate('TransactionList')}
                 >
-                  <Text style={{ color: '#ffffff', fontSize: 15, textAlign: 'right', margin: 5 }}>{this.state.user.firstName} {this.state.user.lastName}</Text>
+                  <Text style={{color: '#ffffff', fontSize: 15,marginTop:4}}>{this.state.user.firstName} {this.state.user.lastName}</Text>
+                   <Image
+                        source={require('../Image/TransactionList/ProfilePicturesWhiteBack.png')}
+                        style={{
+                            height: 30,
+                            resizeMode: 'contain',
+                            
+                        }}
+                    />
+                  
                 </TouchableOpacity>
              
                 
@@ -174,8 +182,20 @@ this.setState({user:userdata})
                     {this.state.TextInputValue}
                   </Text>
                 </View>
-
-                <Text style={styles.CardText}>صدقات</Text>
+                <View style={styles.CardText}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('SadaghatPayment')}> 
+      <Text style={styles.SadaghatCardText}>صدقات</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('NozooratPayment')}> 
+      <Text style={styles.NozooratCardText}>نذورات</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('VojoohatPayment')}> 
+      <Text style={styles.vojoohatCardText}>وجوهات شرعی</Text>
+      </TouchableOpacity>
+                  
+                </View>
+      
+              
 
               </View>
 
@@ -390,10 +410,9 @@ const styles = StyleSheet.create({
   },
 
   CardText: {
-    color: '#fff',
-    fontSize: 30,
-    marginBottom: 10,
-    textAlign: 'center'
+    flexDirection:'row',
+    marginLeft:'auto',
+    marginRight:'auto',
   },
   BackIcon: {
     marginRight: 'auto',
@@ -411,7 +430,28 @@ const styles = StyleSheet.create({
     fontSize: 40,
     marginTop: 0,
     width: '100%',
-  }
+  },
+  SadaghatCardText:{
+    color: '#ffffff',
+    fontSize:30,
+  },
+  vojoohatCardText:{
+    color: '#ffffff',
+    fontSize:15,
+    marginTop:15,
+    marginLeft:10
+  },
+  NozooratCardText:{
+    color: '#ffffff',
+    fontSize:15,
+    marginTop:15,
+    marginLeft:10
+  },
+  Profile:{
+    flexDirection:'row',
+    marginLeft:'auto',
+    margin:6
+  },
 
 });
 

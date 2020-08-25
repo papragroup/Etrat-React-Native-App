@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
     textAlign: 'right',
+    
 
   },
   SectionStyle: {
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginLeft: 35,
     marginRight: 35,
+    fontFamily:'Yekan'
   },
   Button: {
     margin: 12,
@@ -104,12 +106,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#1e5c2e',
     fontSize: 40,
+
+    
   },
   ButtonTextStyle: {
     color: '#1e5c2e',
     fontSize: 25,
     textAlign: 'center',
-    fontSize: 30,
     width: '100%',
   },
   ButtonIconStyle: {

@@ -1,96 +1,120 @@
 
-import React from 'react';
+import React, { Component } from "react";
 
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import AsyncStorage from "@react-native-community/async-storage";
+
 // import { PersianNumber } from 'react-persian';
 
-const HomeScreen = props => {
-  global.currentScreenIndex = 'HomeScreen';
-  return (
-    <View style={styles.mainBody}>
-
-
-
-      <View style={styles.SectionStyle}>
-        
-        <ScrollView keyboardShouldPersistTaps="handled">
-        <View style={styles.Card}>
-        <View style={styles.HeaderCard}>
-          <Text style={{ color: '#cccccc', fontSize: 15, textAlign: 'right', margin: 5 }}>تاریخ:</Text>
-        <TouchableOpacity
-                  onPress={() => props.navigation.navigate('TransactionList')}
-                >
-                  <Text style={{ color: '#cccccc', fontSize: 15, textAlign: 'right', margin: 5 }}>حساب کاربری</Text>
-                </TouchableOpacity>
-                </View>
-            <Text style={{textAlign:'center', fontSize:18,color:'#cccccc',marginTop:5 }}>مجموع پرداخت ها</Text>
-            <View style={styles.TotalPayment}>
-            
-              <Text style={styles.AmountTotalPayment}>1,000,000
-              <Text style={{fontFamily:'Yekan',textAlign:'center', fontSize:18,color:'#ffffff'}} >ریال</Text>
-              </Text>
-              
-            </View>
-            
+export default class HomeScreen extends Component {
+   
+  
+ 
+  render(){
+    return (
+      <View style={styles.mainBody}>
+  
+  
+  
+  
+        <View style={styles.SectionStyle}>
           
-        </View>
-          <View style={styles.RowStyle}>
-            <TouchableOpacity onPress={() => props.navigation.navigate('PaymentType')} >
+          <ScrollView keyboardShouldPersistTaps="handled">
+          <View style={styles.Card}>
+          <View style={styles.HeaderCard}>
+            <Text style={{ color: '#cccccc', fontSize: 15, textAlign: 'right', marginTop:4  }}>تاریخ:</Text>
             
-              <Text style={{ color: '#1e5c2e', marginTop: 6, fontSize: 20, }}>همه موارد</Text>
-            </TouchableOpacity>
-
-            <Text style={{fontFamily:'Yekan', color: '#1e5c2e', fontSize: 32 }}>پرداخت</Text>
-
+            <TouchableOpacity
+               style={styles.Profile}
+                  onPress={() => this.props.navigation.navigate('TransactionList')}
+                >
+                  {/* <Text style={{color: '#ffffff', fontSize: 15,marginTop:4}}>{this.state.user.firstName} {this.state.user.lastName} </Text> */}
+                   <Image
+                        source={require('../Image/TransactionList/ProfilePicturesWhiteBack.png')}
+                        style={{
+                            height: 30,
+                            resizeMode: 'contain',
+                        }}
+                    />
+                  
+                </TouchableOpacity>
+             
+                  </View>
+              <Text style={{textAlign:'center', fontSize:18,color:'#cccccc',marginTop:5 }}>مجموع پرداخت ها</Text>
+              <View style={styles.TotalPayment}>
+              
+                <Text style={styles.AmountTotalPayment}>1,000,000
+                <Text style={{fontFamily:'Yekan',textAlign:'center', fontSize:18,color:'#ffffff'}} >ریال</Text>
+                </Text>
+                
+              </View>
+              
+            
           </View>
-
-          <Text
-
-            style={styles.SelectText}>
-            پرداخت خود را انتخاب کنید
-</Text>
-
-          <TouchableOpacity style={styles.Button}
-            onPress={() => props.navigation.navigate('SadaghatPayment')}
-          >
-            <Image style={styles.ButtonIconStyle}
-
-              source={require('../Image/PaymenType/SadaghatIcon.png')}
-            />
-            <Text style={styles.ButtonTextStyle}>صدقات</Text>
-
-
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}
-            onPress={() => props.navigation.navigate('NozooratPayment')}
-
-
-          >
-            <Image style={styles.ButtonIconStyle}
-
-              source={require('../Image/PaymenType/NozooratIcon.png')}
-            />
-            <Text style={styles.ButtonTextStyle}>نذورات</Text>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}
-            onPress={() => props.navigation.navigate('VojoohatPayment')}
-          >
-            <Image style={styles.ButtonIconStyle}
-
-              source={require('../Image/PaymenType/VojoohatIcon.png')}
-            />
-            <Text style={styles.ButtonTextStyle}>وجوهات شرعی</Text>
-          </TouchableOpacity>
-        </ScrollView>
-
+            <View style={styles.RowStyle}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('PaymentType')} >
+              
+                <Text style={{ color: '#1e5c2e', marginTop: 6, fontSize: 20, }}>همه موارد</Text>
+              </TouchableOpacity>
+  
+              <Text style={{fontFamily:'Yekan', color: '#1e5c2e', fontSize: 32 }}>پرداخت</Text>
+  
+            </View>
+  
+            <Text
+  
+              style={styles.SelectText}>
+              پرداخت خود را انتخاب کنید
+  </Text>
+  
+            <TouchableOpacity style={styles.Button}
+              onPress={() => this.props.navigation.navigate('SadaghatPayment')}
+            >
+              <Image style={styles.ButtonIconStyle}
+  
+                source={require('../Image/PaymenType/SadaghatIcon.png')}
+              />
+              <Text style={styles.ButtonTextStyle}>صدقات</Text>
+  
+  
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.Button}
+              onPress={() => this.props.navigation.navigate('NozooratPayment')}
+  
+  
+            >
+              <Image style={styles.ButtonIconStyle}
+  
+                source={require('../Image/PaymenType/NozooratIcon.png')}
+              />
+              <Text style={styles.ButtonTextStyle}>نذورات</Text>
+  
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.Button}
+              onPress={() => this.props.navigation.navigate('VojoohatPayment')}
+            >
+              <Image style={styles.ButtonIconStyle}
+  
+                source={require('../Image/PaymenType/VojoohatIcon.png')}
+              />
+              <Text style={styles.ButtonTextStyle}>وجوهات شرعی</Text>
+            </TouchableOpacity>
+          </ScrollView>
+  
+        </View>
+  
+  
       </View>
+    );
+  }
+  
+  
+}
+ 
+  
+ 
 
 
-    </View>
-  );
-};
-export default HomeScreen;
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -105,8 +129,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     marginTop: 8,
-    marginLeft: 35,
-    marginRight: 35,
+    marginLeft: 20,
+    marginRight: 20,
   },
   Card: {
     flex: 1,
@@ -184,7 +208,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   HeaderCard:{
-    margin: 12,
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
@@ -197,13 +220,18 @@ const styles = StyleSheet.create({
   AmountTotalPayment:{
     color: '#ffffff',
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 25,
     width: '100%',
   },
   RialTotalPayment:{
     marginRight:'auto',
     color:'#ffffff'
-  }
+  },
+  Profile:{
+    flexDirection:'row',
+    marginLeft:'auto',
+    margin:6
+  },
 
 });
 

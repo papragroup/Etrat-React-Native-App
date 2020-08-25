@@ -14,6 +14,7 @@ import LoginScreen from './Screen/LoginScreen';
 import RegisterScreen from './Screen/RegisterScreen';
 import DrawerNavigationRoutes from './Screen/DrawerNavigationRoutes';
 import TransactionList from './Screen/drawerScreens/TransactionList';
+import HomeScreen from './Screen/drawerScreens/HomeScreen';
 
 
 const Auth = createStackNavigator({

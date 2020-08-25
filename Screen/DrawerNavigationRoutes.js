@@ -50,7 +50,7 @@ const SecoundActivity_StackNavigator = createStackNavigator({
   First: {
     screen:SadaghatPayment,
     navigationOptions: ({ navigation }) => ({
-      title: 'صدقات پرداخت',
+      title: ' پرداخت صدقات',
       headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#1e5c2e',
