@@ -112,38 +112,6 @@ export default class TransactionList extends Component {
         token = await AsyncStorage.getItem('@MyApp_user');
         obj = JSON.parse(token);
         await this.fetchdata(obj.id_token);
-        const handleClick = (index, screenToNavigate) => {
-            if (screenToNavigate == 'logout') {
-                props.navigation.toggleDrawer();
-                Alert.alert(
-                    'خروج',
-                    'مطمئنید؟ می خواهید خارج شوید؟',
-                    [
-                        {
-                            text: 'خیر',
-                            onPress: () => {
-                                return null;
-                            },
-                        },
-                        {
-                            text: 'بله',
-                            onPress: () => {
-                                AsyncStorage.clear();
-                                props.navigation.navigate('Auth');
-                                console.log('logout');
-                            },
-                        },
-                    ],
-                    { cancelable: false }
-                );
-            } else {
-                props.navigation.toggleDrawer();
-                global.currentScreenIndex = screenToNavigate;
-                props.navigation.navigate(screenToNavigate);
-            }
-        };
-
-
     }
     
     
@@ -209,7 +177,7 @@ export default class TransactionList extends Component {
                             renderItem={({ item }) =>
 
 
-                                <TouchableOpacity style={styles.Transactions}
+                                <View style={styles.Transactions}
                                 >
                                     <Text style={styles.RialTransactionStyle}>ریال</Text>
                                     <Text style={styles.TransactionsAmountStyle}>{item.amount}</Text>
@@ -218,7 +186,7 @@ export default class TransactionList extends Component {
                                         source={require('../Image/PaymenType/SadaghatIcon.png')}
 
                                     />
-                                </TouchableOpacity>
+                                </View>
 
                             }
                         />

@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView,FlatList } from 'react-native';
 import AsyncStorage from "@react-native-community/async-storage";
 
 // import { PersianNumber } from 'react-persian';
@@ -9,6 +9,93 @@ import AsyncStorage from "@react-native-community/async-storage";
 export default class HomeScreen extends Component {
    
   
+ 
+
+  state = {
+    data: '',
+}
+
+
+
+
+constructor(props) {
+
+    super(props)
+    this.state = {
+        data: '',
+        user: ''
+    }
+    this.initUser()
+
+    this.Hello();
+}
+
+
+
+
+transactionList = (token) => {
+    var header = 'Bearer '.concat(token);
+    fetch('http://192.168.101.221:8080/api/transactions/user'.concat('?page=0').concat('&size=20'), {
+        method: 'GET',
+        headers: {
+            'Authorization': header,
+            'Content-Type': 'application/json',
+        },
+    })
+
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.setState({ data: responseJson });
+            console.log(this.state.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+}
+
+
+
+Hello = async (test) => {
+    token = await AsyncStorage.getItem('@MyApp_user');
+    obj = JSON.parse(token);
+    await this.transactionList(obj.id_token);
+}
+
+
+
+
+setUserData(userdata) {
+    this.setState({ user: userdata })
+}
+fetchdata(token) {
+    var header = 'Bearer '.concat(token);
+    fetch('http://192.168.101.221:8080/api/user', {
+        method: 'GET',
+        headers: {
+            'Authorization': header,
+            'Content-Type': 'application/json',
+        },
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            console.log(responseJson);
+            this.setState({ user: responseJson });
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
+initUser = async (test) => {
+    token = await AsyncStorage.getItem('@MyApp_user');
+    obj = JSON.parse(token);
+    await this.fetchdata(obj.id_token);
+}
+
+
+
+
+
  
   render(){
     return (
@@ -47,6 +134,33 @@ export default class HomeScreen extends Component {
                 <Text style={{fontFamily:'Yekan',textAlign:'center', fontSize:18,color:'#ffffff'}} >ریال</Text>
                 </Text>
                 
+              </View>
+              <View style={styles.LastTransaction}>
+
+                <Text style={{margin:10,color:'#1e5c2e',fontSize:18,textAlign:'center',fontWeight:'bold'}}>تراکنش های آخر</Text>
+                <FlatList
+                      
+                      data={this.state.data}
+
+
+                      keyExtractor={item => this.state.data.toString()}
+
+                      renderItem={({ item }) =>
+
+
+                <View style={styles.Transaction}>
+    
+                <Text style={styles.TransactionsAmountStyle}>{item.amount}</Text>
+                <View style={styles.TransactionsBorderStyle}></View>
+                  <Text style={styles.TransactionsTextStyle}>{item.type.description}</Text>
+                  
+                  
+                </View>
+                
+              }
+              
+              />
+
               </View>
               
             
@@ -203,7 +317,7 @@ const styles = StyleSheet.create({
 
   },
   SelectText: {
-    margin: 12,
+    marginRight: 12,
     color: '#aaaaaa',
     fontSize: 15,
   },
@@ -212,7 +326,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   TotalPayment:{
-    margin: 12,
+    // margin: 12,
     marginLeft: 'auto',
     marginRight: 'auto',
     flexDirection: 'row'
@@ -225,13 +339,46 @@ const styles = StyleSheet.create({
   },
   RialTotalPayment:{
     marginRight:'auto',
-    color:'#ffffff'
+    color:'#ffffff',
   },
   Profile:{
     flexDirection:'row',
     marginLeft:'auto',
     margin:6
   },
+  LastTransaction:{
+  borderRadius:12,
+   margin:30,
+    backgroundColor:'#fff',
+  },
+  Transaction: {
+    // margin: 12,
+    flexDirection: 'row',
+    paddingBottom: 15,
+    // paddingTop: 15,
+},
+TransactionsTextStyle: {
+  flex: 1,
+  marginRight: 10,
+  fontSize: 15,
+  color: "#1e5c2e",
+  fontWeight: 'bold'
+},
+TransactionsAmountStyle: {
+  flex:1,
+  marginRight: 'auto',
+  marginLeft: 10,
+  color: '#1e5c2e',
+  fontSize: 18,
+},
+TransactionsBorderStyle:{
 
+  borderBottomColor: '#cccccc',
+  borderBottomWidth: 2,
+  marginBottom:10,
+  width: '40%',
+  textAlignVertical: 'center',
+    textAlign: 'center',
+}
 });
 
