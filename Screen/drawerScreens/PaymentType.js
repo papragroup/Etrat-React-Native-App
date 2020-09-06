@@ -73,9 +73,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     marginTop: 8,
-    marginLeft: 35,
-    marginRight: 35,
-    fontFamily:'Yekan'
+    marginLeft: 20,
+    marginRight: 20,
   },
   Button: {
     margin: 12,
@@ -83,8 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 0,
     borderRadius: 7,
-    padding: 20,
-    marginTop: 27,
+    padding: 15,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'transparent',
@@ -105,20 +103,24 @@ const styles = StyleSheet.create({
     margin: 12,
     textAlign: 'center',
     color: '#1e5c2e',
-    fontSize: 40,
+    fontSize: 32,
+    fontFamily:"IRANSans_Bold"
 
     
   },
   ButtonTextStyle: {
     color: '#1e5c2e',
-    fontSize: 25,
     textAlign: 'center',
+    fontSize: 22,
     width: '100%',
+    fontFamily:"IRANSans"
+    
+
   },
   ButtonIconStyle: {
     marginRight: 'auto',
-    width: 40,
-    height: 40,
+    width: 45,
+    height: 45,
 
 
   },
@@ -126,7 +128,8 @@ const styles = StyleSheet.create({
     margin: 12,
     marginTop: 27,
     color: '#aaaaaa',
-    fontSize: 15,
+    fontSize: 13,
+    fontFamily:"IRANSans_Bold"
   },
 
 });

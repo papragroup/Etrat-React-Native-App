@@ -92,6 +92,14 @@ initUser = async (test) => {
     await this.fetchdata(obj.id_token);
 }
 
+ListEmptyView = () => {
+  return (
+         
+      <Text style={styles.EmptyTransaction}> لیست تراکنش های شما خالی است</Text>
+
+  );
+}
+
 
 
 
@@ -109,7 +117,7 @@ initUser = async (test) => {
           <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.Card}>
           <View style={styles.HeaderCard}>
-            <Text style={{ color: '#cccccc', fontSize: 15, textAlign: 'right', marginTop:4  }}>تاریخ:</Text>
+            <Text style={{fontFamily:"IRANSans", color: '#cccccc', fontSize: 15, textAlign: 'right', marginTop:4}}>تاریخ:</Text>
             
             <TouchableOpacity
                style={styles.Profile}
@@ -127,23 +135,24 @@ initUser = async (test) => {
                 </TouchableOpacity>
              
                   </View>
-              <Text style={{textAlign:'center', fontSize:18,color:'#cccccc',marginTop:5 }}>مجموع پرداخت ها</Text>
+              <Text style={{fontFamily:"IRANSans",textAlign:'center', fontSize:18,color:'#cccccc',marginTop:5}}>مجموع پرداخت ها</Text>
               <View style={styles.TotalPayment}>
               
                 <Text style={styles.AmountTotalPayment}>1,000,000
-                <Text style={{fontFamily:'Yekan',textAlign:'center', fontSize:18,color:'#ffffff'}} >ریال</Text>
+                <Text style={{fontFamily:"IRANSans",textAlign:'center', fontSize:13,color:'#ffffff',marginRight:6}} >ریال</Text>
                 </Text>
                 
               </View>
               <View style={styles.LastTransaction}>
 
-                <Text style={{margin:10,color:'#1e5c2e',fontSize:18,textAlign:'center',fontWeight:'bold'}}>تراکنش های آخر</Text>
+                <Text style={{fontFamily:"IRANSans_Bold",margin:10,color:'#1e5c2e',fontSize:15,textAlign:'center'}}>تراکنش های آخر</Text>
                 <FlatList
-                      
+                  
                       data={this.state.data}
 
 
                       keyExtractor={item => this.state.data.toString()}
+                      ListEmptyComponent={this.ListEmptyView}
 
                       renderItem={({ item }) =>
 
@@ -158,8 +167,10 @@ initUser = async (test) => {
                 </View>
                 
               }
+             
               
-              />
+               /> 
+               
 
               </View>
               
@@ -168,10 +179,10 @@ initUser = async (test) => {
             <View style={styles.RowStyle}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('PaymentType')} >
               
-                <Text style={{ color: '#1e5c2e', marginTop: 6, fontSize: 20, }}>همه موارد</Text>
+                <Text style={{ fontFamily:"IRANSans",color: '#1e5c2e', marginTop: 6, fontSize: 18, }}>همه موارد</Text>
               </TouchableOpacity>
   
-              <Text style={{fontFamily:'Yekan', color: '#1e5c2e', fontSize: 32 }}>پرداخت</Text>
+              <Text style={{fontFamily:"IRANSans_Bold",color: '#1e5c2e', fontSize: 25}}>پرداخت</Text>
   
             </View>
   
@@ -181,6 +192,7 @@ initUser = async (test) => {
               پرداخت خود را انتخاب کنید
   </Text>
   
+
             <TouchableOpacity style={styles.Button}
               onPress={() => this.props.navigation.navigate('SadaghatPayment')}
             >
@@ -237,6 +249,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     textAlign: 'right',
     
+    
+    
 
   },
   SectionStyle: {
@@ -273,8 +287,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 0,
     borderRadius: 7,
-    padding: 20,
-    marginTop: 27,
+    padding: 15,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'transparent',
@@ -282,6 +295,7 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 6,
+      
     },
     shadowOpacity: 0.39,
     shadowRadius: 8.30,
@@ -300,33 +314,28 @@ const styles = StyleSheet.create({
   ButtonTextStyle: {
     
     color: '#1e5c2e',
-    fontSize: 25,
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 22,
     width: '100%',
+    fontFamily:"IRANSans"
     
-
-
-
   },
   ButtonIconStyle: {
     marginRight: 'auto',
-    width: 40,
-    height: 40,
-
-
+    width: 42,
+    height: 42,
   },
   SelectText: {
     marginRight: 12,
     color: '#aaaaaa',
-    fontSize: 15,
+    fontSize: 13,
+    fontFamily:"IRANSans_Bold"
   },
   HeaderCard:{
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
   TotalPayment:{
-    // margin: 12,
     marginLeft: 'auto',
     marginRight: 'auto',
     flexDirection: 'row'
@@ -336,6 +345,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 25,
     width: '100%',
+    fontFamily:"IRANSansFaNum"
   },
   RialTotalPayment:{
     marginRight:'auto',
@@ -352,33 +362,38 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
   },
   Transaction: {
-    // margin: 12,
     flexDirection: 'row',
     paddingBottom: 15,
-    // paddingTop: 15,
 },
 TransactionsTextStyle: {
   flex: 1,
   marginRight: 10,
-  fontSize: 15,
+  fontSize: 17,
   color: "#1e5c2e",
-  fontWeight: 'bold'
+  fontFamily:"IRANSans"
 },
 TransactionsAmountStyle: {
   flex:1,
   marginRight: 'auto',
-  marginLeft: 10,
+  marginLeft: 12,
   color: '#1e5c2e',
   fontSize: 18,
+  fontFamily:"IRANSansFaNum"
 },
 TransactionsBorderStyle:{
-
   borderBottomColor: '#cccccc',
   borderBottomWidth: 2,
   marginBottom:10,
   width: '40%',
   textAlignVertical: 'center',
     textAlign: 'center',
+},
+EmptyTransaction:{
+  textAlign:'center',
+  fontSize:14,
+  color:'#aaaaaa',
+  margin:20,
+  fontFamily:"IRANSans_Bold"
 }
 });
 

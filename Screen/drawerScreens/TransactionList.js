@@ -1,10 +1,5 @@
 
 
-
-
-/* This is an Login Registration example from https://aboutreact.com/ */
-/* https://aboutreact.com/react-native-login-and-signup/ */
-
 //Import React and Hook we needed
 // import React, { useState } from 'react';
 import React, { Component, useEffect } from "react";
@@ -114,7 +109,13 @@ export default class TransactionList extends Component {
         await this.fetchdata(obj.id_token);
     }
     
-    
+    ListEmptyView = () => {
+        return (
+               
+            <Text style={styles.EmptyTransaction}> لیست تراکنش های شما خالی است</Text>
+
+        );
+      }
 
 
 
@@ -131,41 +132,39 @@ export default class TransactionList extends Component {
                         <Image
                             source={require('../Image/TransactionList/ProfilePictures.png')}
                             style={{
-                                width: '100%',
-                                height: 53,
+                                width:'100%',
                                 resizeMode: 'contain',
-                                margin: 12
                             }}
                         />
                         <Text
-                            style={{ textAlign: 'center', fontSize: 20, color: '#1e5c2e', margin: 12 }}> {this.state.user.firstName} {this.state.user.lastName}</Text>
+                            style={{fontFamily:"IRANSans", textAlign: 'center', fontSize: 20, color: '#1e5c2e',marginBottom:12}}> {this.state.user.firstName} {this.state.user.lastName}</Text>
                         <View style={styles.TwoButton}>
                             <TouchableOpacity style={styles.ExitButton}>
-                                {/* <Image
+                            <Text style={{fontFamily:"IRANSans", color: '#1e5c2e', fontSize: 13,marginRight:'auto',marginLeft:'auto'}}>خروج از حساب کاربری</Text>
+                                <Image
                                 source={require('../Image/TransactionList/ExitIcon.png')}
                                 style={{
-                                    width: '100%',
-                                    height: 10,
-                                    resizeMode: 'contain',
-                                    margin: 12
+                                    marginTop:7,
+                                    marginRight:15,
+                                resizeMode: 'contain',
                                 }}
-                            /> */}
-                                <Text style={{ color: '#1e5c2e', fontSize: 15, textAlign: 'center' }}>خروج از حساب کاربری</Text>
+                            />
+                                
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.CallButton}>
-                                <Text style={{ color: '#ffffff', fontSize: 15, textAlign: 'center' }}>تماس با پشتیبانی</Text>
-                                {/* <Image
+                            <Text style={{fontFamily:"IRANSans", color: '#ffffff', fontSize: 13,marginRight:'auto',marginLeft:'auto' }}>تماس با پشتیبانی</Text>
+                                <Image
                                 source={require('../Image/TransactionList/Callicon.png')}
                                 style={{
-                                    width: '100%',
-                                    height: 10,
-                                    resizeMode: 'contain',
-                                    margin: 12
+                                marginTop:7,
+                                marginRight:15,
+                            resizeMode: 'contain',
                                 }}
-                            /> */}
+                            />
+                            
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontFamily: 'Yekan', color: '#1e5c2e', fontSize: 20, fontWeight: 'bold', margin: 12 }}>تراکنش های من</Text>
+                        <Text style={{ fontFamily:"IRANSans_Bold", color: '#1e5c2e', fontSize: 20,margin: 12 }}>تراکنش های من</Text>
                    
                         <FlatList
                       
@@ -173,11 +172,13 @@ export default class TransactionList extends Component {
 
 
                             keyExtractor={item => this.state.data.toString()}
+                            ListEmptyComponent={this.ListEmptyView}
 
                             renderItem={({ item }) =>
 
 
                                 <View style={styles.Transactions}
+                               
                                 >
                                     <Text style={styles.RialTransactionStyle}>ریال</Text>
                                     <Text style={styles.TransactionsAmountStyle}>{item.amount}</Text>
@@ -187,6 +188,7 @@ export default class TransactionList extends Component {
 
                                     />
                                 </View>
+                                
 
                             }
                         />
@@ -226,12 +228,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 15,
+        marginTop: 40,
         marginBottom: 15
     },
     ExitButton: {
-        marginHorizontal: 5,
         flex: 1,
+        flexDirection:'row',
+        marginHorizontal: 5,
         padding: 8,
         backgroundColor: '#fff',
         borderWidth: 0,
@@ -248,8 +251,9 @@ const styles = StyleSheet.create({
         elevation: 10
     },
     CallButton: {
-        marginHorizontal: 5,
         flex: 1,
+        flexDirection:'row',
+        marginHorizontal: 5,
         padding: 8,
         backgroundColor: '#1e5c2e',
         borderRadius: 7,
@@ -278,10 +282,20 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         color: '#1e5c2e',
         fontSize: 18,
+        fontFamily:"IRANSansFaNum"
     },
     RialTransactionStyle: {
         color: '#1e5c2e',
         marginRight: 5,
-        marginTop: 5
+        marginTop: 5,
+        fontFamily:"IRANSans"
+    },
+    EmptyTransaction:{
+        textAlign:'center',
+        fontSize:14,
+        color:'#aaaaaa',
+        margin:20,
+        fontFamily:"IRANSans_Bold"
+        
     }
 });
