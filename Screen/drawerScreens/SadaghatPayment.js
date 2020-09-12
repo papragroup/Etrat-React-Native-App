@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import baseUrl from "../../app.json"
 import {
   Platform,
   StyleSheet,
@@ -20,54 +21,24 @@ import {
 import { Value } from "react-native-reanimated";
 import AsyncStorage from "@react-native-community/async-storage";
 export default class SadaghatPayment extends Component {
-   
-  
+
+
   constructor(props) {
     super(props)
-    this.state={
-      data:'',
-      user:''
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    this.state = {
+      data: '',
+      user: ''
     }
     this.initUser()
   }
 
-  setUserData(userdata){
-this.setState({user:userdata})
+  setUserData(userdata) {
+    this.setState({ user: userdata })
   }
-  fetchdata(token){
+  fetchdata(token) {
     var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.221:8080/api/user',{
-        method: 'GET',
-        headers: {
-            'Authorization': header,
-            'Content-Type': 'application/json',
-        },
-    })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          console.log(responseJson);
-            this.setState({ user: responseJson });
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-  }
-  initUser = async (test) => {
-    token = await AsyncStorage.getItem('@MyApp_user');
-    obj = JSON.parse(token);
-    await this.fetchdata(obj.id_token);
-}
-  
-
-
-
-  buttonClickListener = () => {
-    this.Hello(this.getTokenBackend)
-  }
-  getTokenBackend = (token) => {
-    const { TextInputValue } = this.state;
-    var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.221:8080/api/transactions/code'.concat('?amount=').concat(TextInputValue).concat('&type-id=14'), {
+    fetch(baseUrl.baseUrl.concat('/api/user'), {
       method: 'GET',
       headers: {
         'Authorization': header,
@@ -76,7 +47,46 @@ this.setState({user:userdata})
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        var url = 'http://192.168.101.221:8080/gateway/payment?code='.concat(responseJson.token)
+        console.log(responseJson);
+        this.setState({ user: responseJson });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  initUser = async (test) => {
+    token = await AsyncStorage.getItem('@MyApp_user');
+    obj = JSON.parse(token);
+    await this.fetchdata(obj.id_token);
+  }
+
+
+
+
+  buttonClickListener = () => {
+    const { TextInputValue } = this.state;
+    if(TextInputValue){
+      this.Hello(this.getTokenBackend)
+    }else{
+      alert('ناموسن مبلغ را وارد کنید')
+    }
+    
+     
+  }
+  
+  getTokenBackend = (token) => {
+    const { TextInputValue } = this.state;
+    var header = 'Bearer '.concat(token);
+    fetch(baseUrl.baseUrl.concat('/api/transactions/code').concat('?amount=').concat(TextInputValue).concat('&type-id=14'), {
+      method: 'GET',
+      headers: {
+        'Authorization': header,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        var url = baseUrl.baseUrl.concat('/gateway/payment?code=').concat(responseJson.token)
         Linking.openURL(url);
 
         this.setState({
@@ -98,9 +108,9 @@ this.setState({user:userdata})
   }
   state = {
     TextInputValue: ''
-    
+
   }
-  
+
 
   onPress = () => {
     this.setState({
@@ -130,9 +140,13 @@ this.setState({user:userdata})
   onPressButtonFive = () => {
     this.setState({
       TextInputValue: '60000'
-      
+
     })
   }
+  handleBackButtonClick() {
+    this.props.navigation.goBack(null);
+    return true;
+}
 
   render() {
     return (
@@ -142,28 +156,50 @@ this.setState({user:userdata})
 
 
         <View style={styles.SectionStyle}>
-     
+
           <KeyboardAvoidingView enabled>
             <ScrollView keyboardShouldPersistTaps="handled">
+
               <View style={styles.Card}>
-                <TouchableOpacity
-               style={styles.Profile}
-                  onPress={() => this.props.navigation.navigate('TransactionList')}
-                >
-                  <Text style={{fontFamily:"IRANSans",color: '#ffffff', fontSize: 15,marginTop:4}}>{this.state.user.firstName} {this.state.user.lastName}</Text>
-                   <Image
-                        source={require('../Image/TransactionList/ProfilePicturesWhiteBack.png')}
-                        style={{
-                            height: 30,
-                            resizeMode: 'contain',
-                            
-                        }}
+                <View style={styles.ProfileBackRow}>
+                  <TouchableOpacity onPress={this.handleBackButtonClick}>
+                    <Image
+                      source={require('../Image/BackIconWhite.png')}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        resizeMode: 'contain',
+                        marginRight: 'auto',
+                        marginTop: 7,
+                      }}
                     />
-                  
-                </TouchableOpacity>
-             
-                
-                
+
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.Profile}
+                    onPress={() => this.props.navigation.navigate('TransactionList')}
+                  >
+                    <Text style={{ fontFamily: "IRANSans", color: '#ffffff', fontSize: 15, marginTop: 4 }}>{this.state.user.firstName} {this.state.user.lastName}</Text>
+                    <Image
+                      source={require('../Image/TransactionList/ProfilePicturesWhiteBack.png')}
+                      style={{
+                        height: 30,
+                        resizeMode: 'contain',
+
+                      }}
+                    />
+
+                  </TouchableOpacity>
+
+
+
+
+
+
+                </View>
+
+
+
                 <View style={styles.RowIconAmount}>
 
 
@@ -175,27 +211,27 @@ this.setState({user:userdata})
                   <Text
                     style={styles.AmountCard}
 
-                    onChangeText={TextInputValue => this.setState({ TextInputValue  } +'تومان')}
+                    onChangeText={TextInputValue => this.setState({ TextInputValue } + 'تومان')}
 
                   >
-                    
+
                     {this.state.TextInputValue}
                   </Text>
                 </View>
                 <View style={styles.CardText}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('SadaghatPayment')}> 
-      <Text style={styles.SadaghatCardText}>صدقات</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('NozooratPayment')}> 
-      <Text style={styles.NozooratCardText}>نذورات</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('VojoohatPayment')}> 
-      <Text style={styles.vojoohatCardText}>وجوهات شرعی</Text>
-      </TouchableOpacity>
-                  
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('SadaghatPayment')}>
+                    <Text style={styles.SadaghatCardText}>صدقات</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('NozooratPayment')}>
+                    <Text style={styles.NozooratCardText}>نذورات</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('VojoohatPayment')}>
+                    <Text style={styles.vojoohatCardText}>وجوهات شرعی</Text>
+                  </TouchableOpacity>
+
                 </View>
-      
-              
+
+
 
               </View>
 
@@ -214,7 +250,7 @@ this.setState({user:userdata})
                 onChangeText={TextInputValue => this.setState({ TextInputValue })}
               // Making the Under line Transparent.
               >
-                
+
 
 
                 {this.state.TextInputValue}
@@ -326,17 +362,17 @@ const styles = StyleSheet.create({
     shadowRadius: 16.00,
 
     elevation: 15,
-  
+
 
 
   },
   SelectText: {
     marginRight: 12,
-    marginTop:12,
+    marginTop: 12,
     flex: 1,
     color: '#aaaaaa',
     fontSize: 13,
-    fontFamily:"IRANSans_Bold"
+    fontFamily: "IRANSans_Bold"
   },
   inputStyle: {
     margin: 12,
@@ -350,12 +386,12 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 6,
-   
+
     },
     shadowOpacity: 0.39,
     shadowRadius: 8.30,
     elevation: 10,
-    fontFamily:"IRANSansFaNum",
+    fontFamily: "IRANSansFaNum",
   },
   AmountOneRow: {
     flexDirection: 'row',
@@ -391,16 +427,16 @@ const styles = StyleSheet.create({
   AmountButtonTextStyle: {
     color: '#1e5c2e',
     fontSize: 13,
-    fontFamily:"IRANSans",
+    fontFamily: "IRANSans",
     textAlignVertical: 'center',
     textAlign: 'center',
     width: '100%',
-    
-    
-    
+
+
+
   },
-  AmountButtonNumStyle:{
-    fontFamily:"IRANSansFaNumBold",
+  AmountButtonNumStyle: {
+    fontFamily: "IRANSansFaNumBold",
     textAlign: 'center',
     color: '#1e5c2e',
     fontSize: 23,
@@ -420,7 +456,7 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: '#ffffff',
     fontSize: 22,
-    fontFamily:"IRANSans"
+    fontFamily: "IRANSans"
   },
 
   NozooratCardIcon: {
@@ -429,10 +465,10 @@ const styles = StyleSheet.create({
   },
 
   CardText: {
-  flexDirection:'row',
-  marginRight:'auto',
-  marginLeft:'auto',
-  
+    flexDirection: 'row',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+
   },
   BackIcon: {
     marginRight: 'auto',
@@ -450,34 +486,37 @@ const styles = StyleSheet.create({
     fontSize: 40,
     marginTop: 0,
     width: '100%',
-    fontFamily:"IRANSansFaNum",
+    fontFamily: "IRANSansFaNum",
   },
-  NozooratCardText:{
+  NozooratCardText: {
     color: '#ffffff',
-    fontSize:13,
-    marginTop:15,
-    marginLeft:13,
-    fontFamily:"IRANSans"
+    fontSize: 13,
+    marginTop: 15,
+    marginLeft: 13,
+    fontFamily: "IRANSans"
 
   },
-  vojoohatCardText:{
+  vojoohatCardText: {
     color: '#ffffff',
-    fontSize:13,
-    marginTop:15,
-    marginLeft:13,
-    fontFamily:"IRANSans"
+    fontSize: 13,
+    marginTop: 15,
+    marginLeft: 13,
+    fontFamily: "IRANSans"
   },
-  SadaghatCardText:{
+  SadaghatCardText: {
     color: '#ffffff',
-    fontSize:28,
-    fontFamily:"IRANSans"
+    fontSize: 28,
+    fontFamily: "IRANSans"
   },
-  Profile:{
-    flexDirection:'row',
-    marginLeft:'auto',
-    margin:6
+  Profile: {
+    flexDirection: 'row',
+    marginLeft: 'auto',
+    margin: 6
   },
-
+  ProfileBackRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 });
 
 

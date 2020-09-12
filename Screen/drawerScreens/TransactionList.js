@@ -4,6 +4,9 @@
 // import React, { useState } from 'react';
 import React, { Component, useEffect } from "react";
 import AsyncStorage from '@react-native-community/async-storage';
+import baseUrl from "../../app.json";
+
+
 
 //Import all required component
 import {
@@ -18,6 +21,8 @@ import {
     Keyboard,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Button,
+ Alert
 
 } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,7 +30,30 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default class TransactionList extends Component {
 
-    
+    _twoOptionAlertHandler=()=>{
+        //function to make two option alert
+        Alert.alert(
+          //title
+          'خروج',
+          //body
+          'آیا میخواهید خارج شوید؟',
+          [
+          
+            {text: 'خیر', onPress: () => console.log('No Pressed'), style: 'cancel'},
+            {
+                text: 'بله',
+                onPress: () => {
+                  AsyncStorage.clear();
+                  this.props.navigation.navigate('Auth');
+                  console.log('logout');
+                },
+              },
+          ],
+          { cancelable: false }
+          //clicking out side of alert will not cancel
+        );
+      }
+
 
 
     state = {
@@ -38,6 +66,7 @@ export default class TransactionList extends Component {
     constructor(props) {
 
         super(props)
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         this.state = {
             data: '',
             user: ''
@@ -52,7 +81,7 @@ export default class TransactionList extends Component {
 
     transactionList = (token) => {
         var header = 'Bearer '.concat(token);
-        fetch('http://192.168.101.221:8080/api/transactions/user'.concat('?page=0').concat('&size=20'), {
+        fetch(baseUrl.baseUrl.concat('/api/transactions/user').concat('?page=0').concat('&size=20'), {
             method: 'GET',
             headers: {
                 'Authorization': header,
@@ -87,7 +116,7 @@ export default class TransactionList extends Component {
     }
     fetchdata(token) {
         var header = 'Bearer '.concat(token);
-        fetch('http://192.168.101.221:8080/api/user', {
+        fetch(baseUrl.baseUrl.concat('/api/user'), {
             method: 'GET',
             headers: {
                 'Authorization': header,
@@ -102,6 +131,7 @@ export default class TransactionList extends Component {
             .catch((error) => {
                 console.error(error);
             });
+
     }
     initUser = async (test) => {
         token = await AsyncStorage.getItem('@MyApp_user');
@@ -116,16 +146,33 @@ export default class TransactionList extends Component {
 
         );
       }
+      handleBackButtonClick() {
+        this.props.navigation.goBack(null);
+        return true;
+    }
 
 
 
     render() {
+    
         return (
             <View style={styles.mainBody}>
 
                 <View style={styles.SectionStyle}>
                     <KeyboardAvoidingView enabled>
 
+                    
+<TouchableOpacity onPress={this.handleBackButtonClick}>
+<Image
+                            source={require('../Image/BackIconBlack.png')}
+                            style={{
+                                width:30,
+                                height:30,
+                                resizeMode: 'contain',
+                            }}
+                        />
+    
+</TouchableOpacity>
 
 
 
@@ -139,7 +186,7 @@ export default class TransactionList extends Component {
                         <Text
                             style={{fontFamily:"IRANSans", textAlign: 'center', fontSize: 20, color: '#1e5c2e',marginBottom:12}}> {this.state.user.firstName} {this.state.user.lastName}</Text>
                         <View style={styles.TwoButton}>
-                            <TouchableOpacity style={styles.ExitButton}>
+                            <TouchableOpacity style={styles.ExitButton} onPress={this._twoOptionAlertHandler}>
                             <Text style={{fontFamily:"IRANSans", color: '#1e5c2e', fontSize: 13,marginRight:'auto',marginLeft:'auto'}}>خروج از حساب کاربری</Text>
                                 <Image
                                 source={require('../Image/TransactionList/ExitIcon.png')}
@@ -164,7 +211,7 @@ export default class TransactionList extends Component {
                             
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontFamily:"IRANSans_Bold", color: '#1e5c2e', fontSize: 20,margin: 12 }}>تراکنش های من</Text>
+                        <Text style={{ fontFamily:"IRANSans_Bold", color: '#1e5c2e', fontSize: 20,marginRight: 12,marginTop:30,marginBottom:30 }}>تراکنش های من</Text>
                    
                         <FlatList
                       
@@ -176,27 +223,31 @@ export default class TransactionList extends Component {
 
                             renderItem={({ item }) =>
 
-
                                 <View style={styles.Transactions}
-                               
+                        
                                 >
-                                    <Text style={styles.RialTransactionStyle}>ریال</Text>
-                                    <Text style={styles.TransactionsAmountStyle}>{item.amount}</Text>
+                                    <View style={styles.TransactionsDateAmountStyle}>
+                                    <Text style={styles.TransactionsAmountStyle}> {item.amount}
+                                    <Text style={{fontSize:12}}>ریال</Text>
+                                    </Text>
+                            <Text style={styles.TransactionsDateStyle}>{item.createDateFormat}</Text>
+                                    {/* <Text style={styles.RialTransactionStyle}>ریال</Text> */}
+                            
+                                    </View>
+                                
                                     <Text style={styles.TransactionsTextStyle}>{item.type.description}</Text>
                                     <Image style={styles.TransactionsIconStyle}
                                         source={require('../Image/PaymenType/SadaghatIcon.png')}
-
                                     />
+                                    
                                 </View>
-                                
-
                             }
                         />
 
-
-
+                        
 
                     </KeyboardAvoidingView>
+                   
 
                 </View>
             </View>
@@ -281,7 +332,7 @@ const styles = StyleSheet.create({
     TransactionsAmountStyle: {
         marginRight: 'auto',
         color: '#1e5c2e',
-        fontSize: 18,
+        fontSize: 20,
         fontFamily:"IRANSansFaNum"
     },
     RialTransactionStyle: {
@@ -297,5 +348,10 @@ const styles = StyleSheet.create({
         margin:20,
         fontFamily:"IRANSans_Bold"
         
+    },
+    TransactionsDateStyle:{
+        fontFamily:'IRANSANS',
+        fontSize:15,
+        color:'#666666'
     }
 });

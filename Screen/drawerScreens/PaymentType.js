@@ -1,64 +1,92 @@
 
-import React from 'react';
+import React, { Component } from "react";
+import baseUrl from "../../app.json"
 
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
-const PaymenType = props => {
-  global.currentScreenIndex = 'HomeScreen';
-  return (
-    <View style={styles.mainBody}>
+export default class PaymentType extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+}
 
 
-      <View style={styles.SectionStyle}>
-        <ScrollView keyboardShouldPersistTaps="handled">
-          <Text style={styles.HeaderText}>پرداخت</Text>
-          <Text
-
-            style={styles.SelectText}>
-            پرداخت خود را انتخاب کنید
-</Text>
-
-          <TouchableOpacity style={styles.Button}
-            onPress={() => props.navigation.navigate('SadaghatPayment')}
-          >
-            <Image style={styles.ButtonIconStyle}
-
-              source={require('../Image/PaymenType/SadaghatIcon.png')}
-            />
-            <Text style={styles.ButtonTextStyle}>صدقات</Text>
+handleBackButtonClick() {
+  this.props.navigation.goBack(null);
+  return true;
+}
 
 
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}
-            onPress={() => props.navigation.navigate('NozooratPayment')}
-
-
-          >
-            <Image style={styles.ButtonIconStyle}
-
-              source={require('../Image/PaymenType/NozooratIcon.png')}
-            />
-            <Text style={styles.ButtonTextStyle}>نذورات</Text>
-
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.Button}
-            onPress={() => props.navigation.navigate('VojoohatPayment')}
-          >
-            <Image style={styles.ButtonIconStyle}
-
-              source={require('../Image/PaymenType/VojoohatIcon.png')}
-            />
-            <Text style={styles.ButtonTextStyle}>وجوهات شرعی</Text>
-          </TouchableOpacity>
-        </ScrollView>
-
+  render(){
+    return (
+      <View style={styles.mainBody}>
+  
+  
+        <View style={styles.SectionStyle}>
+          <ScrollView keyboardShouldPersistTaps="handled">
+          <TouchableOpacity onPress={this.handleBackButtonClick}>
+  <Image
+                              source={require('../Image/BackIconBlack.png')}
+                              style={{
+                                  width:30,
+                                  height:30,
+                                  resizeMode: 'contain',
+                              }}
+                          />
+      
+  </TouchableOpacity>
+            <Text style={styles.HeaderText}>پرداخت</Text>
+            <Text
+  
+              style={styles.SelectText}>
+              پرداخت خود را انتخاب کنید
+  </Text>
+  
+            <TouchableOpacity style={styles.Button}
+              onPress={() => this.props.navigation.navigate('SadaghatPayment')}
+            >
+              <Image style={styles.ButtonIconStyle}
+  
+                source={require('../Image/PaymenType/SadaghatIcon.png')}
+              />
+              <Text style={styles.ButtonTextStyle}>صدقات</Text>
+  
+  
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.Button}
+              onPress={() => this.props.navigation.navigate('NozooratPayment')}
+  
+  
+            >
+              <Image style={styles.ButtonIconStyle}
+  
+                source={require('../Image/PaymenType/NozooratIcon.png')}
+              />
+              <Text style={styles.ButtonTextStyle}>نذورات</Text>
+  
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.Button}
+              onPress={() => this.props.navigation.navigate('VojoohatPayment')}
+            >
+              <Image style={styles.ButtonIconStyle}
+  
+                source={require('../Image/PaymenType/VojoohatIcon.png')}
+              />
+              <Text style={styles.ButtonTextStyle}>وجوهات شرعی</Text>
+            </TouchableOpacity>
+          </ScrollView>
+  
+        </View>
+  
+  
       </View>
+    );
+  };
 
+  }
+ 
 
-    </View>
-  );
-};
-export default PaymenType;
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -131,7 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily:"IRANSans_Bold"
   },
-
 });
 
 

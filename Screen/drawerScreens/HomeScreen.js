@@ -1,25 +1,27 @@
 
 import React, { Component } from "react";
-
+import moment from 'jalali-moment'
+import baseUrl from "../../app.json"
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView,FlatList } from 'react-native';
 import AsyncStorage from "@react-native-community/async-storage";
+
 
 // import { PersianNumber } from 'react-persian';
 
 export default class HomeScreen extends Component {
    
   
+  
  
 
   state = {
     data: '',
+    
 }
 
 
-
-
 constructor(props) {
-
+ 
     super(props)
     this.state = {
         data: '',
@@ -32,10 +34,9 @@ constructor(props) {
 
 
 
-
 transactionList = (token) => {
     var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.221:8080/api/transactions/user'.concat('?page=0').concat('&size=20'), {
+    fetch(baseUrl.baseUrl.concat('/api/transactions/user').concat('?page=0').concat('&size=20'), {
         method: 'GET',
         headers: {
             'Authorization': header,
@@ -70,7 +71,7 @@ setUserData(userdata) {
 }
 fetchdata(token) {
     var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.221:8080/api/user', {
+    fetch(baseUrl.baseUrl.concat('/api/user'), {
         method: 'GET',
         headers: {
             'Authorization': header,
@@ -101,11 +102,9 @@ ListEmptyView = () => {
 }
 
 
-
-
-
- 
   render(){
+    let dateJalali = moment().format('jYYYY/jM/jD')
+    
     return (
       <View style={styles.mainBody}>
   
@@ -115,9 +114,18 @@ ListEmptyView = () => {
         <View style={styles.SectionStyle}>
           
           <ScrollView keyboardShouldPersistTaps="handled">
+
+            
           <View style={styles.Card}>
           <View style={styles.HeaderCard}>
-            <Text style={{fontFamily:"IRANSans", color: '#cccccc', fontSize: 15, textAlign: 'right', marginTop:4}}>تاریخ:</Text>
+            
+            <Text
+            
+            style={{fontFamily:"IRANSansFaNumBold", color: '#cccccc', fontSize: 14, textAlign: 'right', marginTop:4 , marginLeft:7}}>
+              <Text>تاریخ :  </Text>
+              {dateJalali}
+              
+              </Text>
             
             <TouchableOpacity
                style={styles.Profile}
@@ -142,6 +150,7 @@ ListEmptyView = () => {
                 <Text style={{fontFamily:"IRANSans",textAlign:'center', fontSize:13,color:'#ffffff',marginRight:6}} >ریال</Text>
                 </Text>
                 
+
               </View>
               <View style={styles.LastTransaction}>
 
@@ -159,7 +168,10 @@ ListEmptyView = () => {
 
                 <View style={styles.Transaction}>
     
-                <Text style={styles.TransactionsAmountStyle}>{item.amount}</Text>
+                <Text style={styles.TransactionsAmountStyle}>{item.amount}
+                
+                </Text>
+                
                 <View style={styles.TransactionsBorderStyle}></View>
                   <Text style={styles.TransactionsTextStyle}>{item.type.description}</Text>
                   

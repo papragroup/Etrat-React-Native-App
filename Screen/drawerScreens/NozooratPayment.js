@@ -1,21 +1,19 @@
 import React, { Component } from "react";
+import baseUrl from "../../app.json"
+
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
-  Alert,
   Linking,
-  Style,
   Image,
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  ImageBackground,
-  NumricInput
+  
 } from "react-native";
+
 
 import { Value } from "react-native-reanimated";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -24,19 +22,22 @@ export default class NozooratPayment extends Component {
   
   constructor(props) {
     super(props)
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.state={
       data:'',
       user:''
+      
     }
     this.initUser()
   }
+  
 
   setUserData(userdata){
 this.setState({user:userdata})
   }
   fetchdata(token){
     var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.221:8080/api/user',{
+    fetch(baseUrl.baseUrl.concat('/api/user'),{
         method: 'GET',
         headers: {
             'Authorization': header,
@@ -64,12 +65,18 @@ this.setState({user:userdata})
 
 
   buttonClickListener = () => {
-    this.Hello(this.getTokenBackend)
+    const { TextInputValue } = this.state;
+    if(TextInputValue){
+      this.Hello(this.getTokenBackend)
+    }else{
+      alert('لطفا مبلغ را وارد کنید')
+    }
+     
   }
   getTokenBackend = (token) => {
     const { TextInputValue } = this.state;
     var header = 'Bearer '.concat(token);
-    fetch('http://192.168.101.221:8080/api/transactions/code'.concat('?amount=').concat(TextInputValue).concat('&type-id=14'), {
+    fetch(baseUrl.baseUrl.concat('/api/transactions/code').concat('?amount=').concat(TextInputValue).concat('&type-id=14'), {
       method: 'GET',
       headers: {
         'Authorization': header,
@@ -78,7 +85,7 @@ this.setState({user:userdata})
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        var url = 'http://192.168.101.221:8080/gateway/payment?code='.concat(responseJson.token)
+        var url = baseUrl.baseUrl.concat('/gateway/payment?code=').concat(responseJson.token)
         Linking.openURL(url);
         console.log(responseJson);
         this.setState({
@@ -136,33 +143,61 @@ this.setState({user:userdata})
     })
   }
 
+  handleBackButtonClick() {
+    this.props.navigation.goBack(null);
+    return true;
+}
+
   render() {
+    
     return (
 
       <View style={styles.mainBody}>
-
-
 
         <View style={styles.SectionStyle}>
      
           <KeyboardAvoidingView enabled>
             <ScrollView keyboardShouldPersistTaps="handled">
+       
               <View style={styles.Card}>
-               
-              <TouchableOpacity
-               style={styles.Profile}
-                  onPress={() => this.props.navigation.navigate('TransactionList')}
-                >
-                  <Text style={{fontFamily:"IRANSans",color: '#ffffff', fontSize: 15,marginTop:4}}>{this.state.user.firstName} {this.state.user.lastName} </Text>
-                   <Image
-                        source={require('../Image/TransactionList/ProfilePicturesWhiteBack.png')}
-                        style={{
-                            height: 30,
-                            resizeMode: 'contain',
-                        }}
+              <View style={styles.ProfileBackRow}>
+              
+                  <TouchableOpacity onPress={this.handleBackButtonClick}>
+                    <Image
+                      source={require('../Image/BackIconWhite.png')}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        resizeMode: 'contain',
+                        marginRight: 'auto',
+                        marginTop: 7,
+                      }}
                     />
-                  
-                </TouchableOpacity>
+
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.Profile}
+                    onPress={() => this.props.navigation.navigate('TransactionList')}
+                  >
+                    <Text style={{ fontFamily: "IRANSans", color: '#ffffff', fontSize: 15, marginTop: 4 }}>{this.state.user.firstName} {this.state.user.lastName}</Text>
+                    <Image
+                      source={require('../Image/TransactionList/ProfilePicturesWhiteBack.png')}
+                      style={{
+                        height: 30,
+                        resizeMode: 'contain',
+
+                      }}
+                    />
+
+                  </TouchableOpacity>
+
+
+
+
+
+
+                </View>
+
              
                 
                 
@@ -176,8 +211,8 @@ this.setState({user:userdata})
                   </Image>
                   <Text
                     style={styles.AmountCard}
-
-                    onChangeText={TextInputValue => this.setState({ TextInputValue  } +'تومان')}
+                  
+                    onChangeText={TextInputValue => this.setState({ TextInputValue  } )}
 
                   >
                     
@@ -483,7 +518,10 @@ const styles = StyleSheet.create({
     marginLeft:'auto',
     margin:6
   },
-
+  ProfileBackRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 });
 
 

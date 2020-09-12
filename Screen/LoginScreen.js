@@ -3,6 +3,9 @@
 //Import React and Hook we needed
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import baseUrl from "../app.json"
+
+
 
 //Import all required component
 import {
@@ -18,6 +21,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import Loader from './Component/Loader';
+import { Value } from 'react-native-reanimated';
 
 const LoginScreen = props => {
   let [userName, setUserName] = useState('');
@@ -25,20 +29,29 @@ const LoginScreen = props => {
   let [loading, setLoading] = useState(false);
   let [errortext, setErrortext] = useState('');
 
+  
+
+
+
+
+
+  
+
   const handleSubmitPress = () => {
+    
     setErrortext('');
     if (!userName) {
       alert('لطفا نام کاربری را وارد کنید');
       return;
     }
     if (!userPassword) {
-      alert('لطفا پسورد را وارد کنید');
+      alert('لطفا کلمه عبور را وارد کنید');
       return;
     }
     setLoading(true);
     var dataToSend = { username: userName, password: userPassword };
-
-    fetch('http://192.168.101.221:8080/api/authenticate', {
+    console.log(`${process.env.baseUrl}`);
+    fetch(baseUrl.baseUrl.concat('/api/authenticate'), {
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {
@@ -85,8 +98,6 @@ const LoginScreen = props => {
       <Loader loading={loading} />
       <View style={styles.SectionStyle}>
       <ScrollView keyboardShouldPersistTaps="handled">
-
-
         <Image
           source={require('./Image/logo.png')}
           style={{
@@ -104,9 +115,9 @@ const LoginScreen = props => {
           keyboardType="default"
 
           returnKeyType="next"
-          onSubmitEditing={() =>
-            this._passwordinput && this._passwordinput.focus()
-          }
+          // onSubmitEditing={() =>
+          //   this._passwordinput && this._passwordinput.focus()
+          // }
           blurOnSubmit={false}
         />
         <TextInput
@@ -118,14 +129,19 @@ const LoginScreen = props => {
           onSubmitEditing={Keyboard.dismiss}
           blurOnSubmit={false}
           secureTextEntry={true}
+          
         />
+        
+        
         {errortext != '' ? (
           <Text style={styles.errorTextStyle}> {errortext} </Text>
         ) : null}
         <TouchableOpacity
           style={styles.buttonStyle}
           activeOpacity={0.5}
-          onPress={handleSubmitPress}>
+          onPress={handleSubmitPress}
+          disabled={!handleSubmitPress}
+          >
           <Text style={styles.buttonTextStyle}>ورود</Text>
         </TouchableOpacity>
         <View style={styles.ForgetPasswordStyle}>
