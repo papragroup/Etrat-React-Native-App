@@ -15,7 +15,6 @@ import PaymentType from './drawerScreens/PaymentType';
 import TransactionList from './drawerScreens/TransactionList';
 import NozooratPayment from './drawerScreens/NozooratPayment';
 import VojoohatPayment from './drawerScreens/VojoohatPayment';
-import SettingsScreen from './drawerScreens/SettingsScreen';
 import CustomSidebarMenu from './Component/CustomSidebarMenu';
 import NavigationDrawerHeader from './Component/NavigationDrawerHeader';
 
@@ -48,7 +47,7 @@ const FirstActivity_StackNavigator = createStackNavigator({
 // });
 const SecoundActivity_StackNavigator = createStackNavigator({
   First: {
-    screen:SadaghatPayment,
+    screen: SadaghatPayment,
     navigationOptions: ({ navigation }) => ({
       title: ' پرداخت صدقات',
       headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
@@ -58,7 +57,7 @@ const SecoundActivity_StackNavigator = createStackNavigator({
       headerTintColor: '#fff',
     }),
   },
-}); 
+});
 const TripleActivity_StackNavigator = createStackNavigator({
   First: {
     screen: PaymentType,
@@ -152,8 +151,8 @@ const DrawerNavigatorRoutes = createDrawerNavigator(
         drawerLabel: 'VojoohatPayment',
       },
     },
-  
-    
+
+
   },
   {
     contentComponent: CustomSidebarMenu,

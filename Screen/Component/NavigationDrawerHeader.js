@@ -20,7 +20,7 @@ const NavigationDrawerHeader = props => {
             uri:
               'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png',
           }}
-          style={{ width: 25, height: 25, marginRight: 5  }}
+          style={{ width: 25, height: 25, marginRight: 5 }}
         />
       </TouchableOpacity>
     </View>

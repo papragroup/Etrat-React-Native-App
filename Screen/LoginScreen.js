@@ -29,16 +29,16 @@ const LoginScreen = props => {
   let [loading, setLoading] = useState(false);
   let [errortext, setErrortext] = useState('');
 
-  
 
 
 
 
 
-  
+
+
 
   const handleSubmitPress = () => {
-    
+
     setErrortext('');
     if (!userName) {
       alert('لطفا نام کاربری را وارد کنید');
@@ -50,7 +50,6 @@ const LoginScreen = props => {
     }
     setLoading(true);
     var dataToSend = { username: userName, password: userPassword };
-    console.log(`${process.env.baseUrl}`);
     fetch(baseUrl.baseUrl.concat('/api/authenticate'), {
       method: 'POST',
       body: JSON.stringify(dataToSend),
@@ -97,63 +96,75 @@ const LoginScreen = props => {
 
       <Loader loading={loading} />
       <View style={styles.SectionStyle}>
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <Image
-          source={require('./Image/logo.png')}
-          style={{
-            width: '100%',
-            height: 230,
-            resizeMode: 'contain',
-          }}
-        />
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={UserName => setUserName(UserName)}
-          placeholder="نام کاربری"
-          placeholderTextColor="#F6F6F7"
-          autoCapitalize="none"
-          keyboardType="default"
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <Image
+            source={require('./Image/logo.png')}
+            style={{
+              width: '100%',
+              height: 230,
+              resizeMode: 'contain',
+            }}
+          />
+          <Text style={styles.SloganStyle}>عترت خانه سادات است</Text>
+          <TextInput
+            style={styles.inputStyle}
+            onChangeText={UserName => setUserName(UserName)}
+            placeholder="نام کاربری"
+            placeholderTextColor="#F6F6F7"
+            autoCapitalize="none"
+            keyboardType="default"
 
-          returnKeyType="next"
-          // onSubmitEditing={() =>
-          //   this._passwordinput && this._passwordinput.focus()
-          // }
-          blurOnSubmit={false}
-        />
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={UserPassword => setUserPassword(UserPassword)}
-          placeholder="کلمه عبور"
-          placeholderTextColor="#F6F6F7"
-          keyboardType="default"
-          onSubmitEditing={Keyboard.dismiss}
-          blurOnSubmit={false}
-          secureTextEntry={true}
-          
-        />
-        
-        
-        {errortext != '' ? (
-          <Text style={styles.errorTextStyle}> {errortext} </Text>
-        ) : null}
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          activeOpacity={0.5}
-          onPress={handleSubmitPress}
-          disabled={!handleSubmitPress}
+            returnKeyType="next"
+            // onSubmitEditing={() =>
+            //   this._passwordinput && this._passwordinput.focus()
+            // }
+            blurOnSubmit={false}
+          />
+          <TextInput
+            style={styles.inputStyle}
+            onChangeText={UserPassword => setUserPassword(UserPassword)}
+            placeholder="کلمه عبور"
+            placeholderTextColor="#F6F6F7"
+            keyboardType="default"
+            onSubmitEditing={Keyboard.dismiss}
+            blurOnSubmit={false}
+            secureTextEntry={true}
+
+          />
+
+
+          {errortext != '' ? (
+            <Text style={styles.errorTextStyle}> {errortext} </Text>
+          ) : null}
+
+<View style={styles.ForgetPasswordStyle}>
+            <TouchableOpacity >
+
+              <Text style={{ fontFamily: "IRANSans_Bold", color: '#ffffff' }}>بازیابی رمز عبور</Text>
+            </TouchableOpacity>
+
+            <Text style={{ fontFamily: "IRANSans", color: '#aaaaaa', marginLeft: 4, marginTop: 2 }}>رمز عبور خود را فرموش کرده اید ؟</Text>
+
+          </View>
+
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            activeOpacity={0.5}
+            onPress={handleSubmitPress}
+            disabled={!handleSubmitPress}
           >
-          <Text style={styles.buttonTextStyle}>ورود</Text>
-        </TouchableOpacity>
-        <View style={styles.ForgetPasswordStyle}>
-          <TouchableOpacity >
-
-            <Text style={{fontFamily:"IRANSans_Bold", color: '#ffffff' }}>بازیابی رمز عبور</Text>
+            <Text style={styles.buttonTextStyle}>ورود</Text>
           </TouchableOpacity>
-
-          <Text style={{fontFamily:"IRANSans", color: '#aaaaaa', marginLeft: 4,marginTop:2 }}>رمز عبور خود را فرموش کرده اید ؟</Text>
-
-        </View>
-
+          <Text style={styles.border}></Text>
+          <TouchableOpacity
+            style={styles.GuestbuttonStyle}
+            // activeOpacity={0.5}
+            // onPress={handleSubmitPress}
+            // disabled={!handleSubmitPress}
+          >
+            <Text style={styles.GuestbuttonTextStyle}>مهمان</Text>
+          </TouchableOpacity>
+        
 
 
         </ScrollView>
@@ -175,7 +186,7 @@ const styles = StyleSheet.create({
 
     flex: 1,
     height: 40,
-    marginTop: 100,
+    marginTop: 30,
     marginLeft: 35,
     marginRight: 35
   },
@@ -186,21 +197,21 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderColor: 'white',
     textAlign: 'right',
-    
+
   },
   errorTextStyle: {
     margin: 12,
     color: 'red',
     textAlign: 'center',
     fontSize: 14,
-    fontFamily:"IRANSans_Bold"
+    fontFamily: "IRANSans_Bold"
   },
   buttonStyle: {
     margin: 12,
     backgroundColor: '#ffffff',
     borderWidth: 0,
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 7,
     padding: 15,
     marginTop: 27,
   },
@@ -208,14 +219,42 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: '#1e5c2e',
     fontSize: 22,
-    fontFamily:"IRANSans"
+    fontFamily: "IRANSans"
   },
   ForgetPasswordStyle: {
     margin: 12,
     marginLeft: 'auto',
     marginRight: 'auto',
     flexDirection: 'row',
-    
-
+  },
+  GuestbuttonStyle: {
+    margin: 12,
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor:'#fff',
+    alignItems: 'center',
+    borderRadius: 7,
+    padding: 8,
+    marginTop: 27,
+  },
+  GuestbuttonTextStyle:{
+    color: '#ffffff',
+    fontSize: 22,
+    fontFamily: "IRANSans"
+  },
+  border:{
+    flex:1,
+    borderBottomWidth:1,
+    borderColor:'#ffffff',
+    marginRight:12,
+    marginLeft:12
+  },
+  SloganStyle:{
+    textAlign:'center',
+    color:'#ffffff',
+    fontSize:18,
+    fontFamily: "IRANSans",
+    marginTop:20,
   }
+
 });

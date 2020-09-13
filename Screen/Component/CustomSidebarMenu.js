@@ -99,14 +99,14 @@ const stylesSidebar = StyleSheet.create({
     backgroundColor: '#062e10',
     paddingTop: 40,
     color: 'white',
-    
-    
+
+
   },
   profileHeader: {
     flexDirection: 'row',
     backgroundColor: '#1e5c2e',
     padding: 15,
-    textAlign: 'center',    
+    textAlign: 'center',
   },
   profileHeaderPicCircle: {
     width: 60,
@@ -117,14 +117,14 @@ const stylesSidebar = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-  
+
   },
   profileHeaderText: {
     color: 'white',
     alignSelf: 'center',
     paddingHorizontal: 10,
     fontWeight: 'bold',
-    
+
   },
   profileHeaderLine: {
     height: 1,

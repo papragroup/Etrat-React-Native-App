@@ -36,5 +36,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: '#00000090',
   },
-  
+
 });

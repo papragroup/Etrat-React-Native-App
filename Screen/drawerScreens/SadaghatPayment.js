@@ -65,15 +65,15 @@ export default class SadaghatPayment extends Component {
 
   buttonClickListener = () => {
     const { TextInputValue } = this.state;
-    if(TextInputValue){
-      this.Hello(this.getTokenBackend)
-    }else{
-      alert('ناموسن مبلغ را وارد کنید')
+    if (TextInputValue) {
+      this.GetToken(this.getTokenBackend)
+    } else {
+      alert('لطفا مبلغ را وارد کنید')
     }
-    
-     
+
+
   }
-  
+
   getTokenBackend = (token) => {
     const { TextInputValue } = this.state;
     var header = 'Bearer '.concat(token);
@@ -101,7 +101,7 @@ export default class SadaghatPayment extends Component {
 
 
 
-  Hello = async (test) => {
+  GetToken = async (test) => {
     token = await AsyncStorage.getItem('@MyApp_user');
     obj = JSON.parse(token);
     this.getTokenBackend(obj.id_token);
@@ -146,7 +146,7 @@ export default class SadaghatPayment extends Component {
   handleBackButtonClick() {
     this.props.navigation.goBack(null);
     return true;
-}
+  }
 
   render() {
     return (

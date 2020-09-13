@@ -22,7 +22,7 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Button,
- Alert
+    Alert
 
 } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,29 +30,29 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default class TransactionList extends Component {
 
-    _twoOptionAlertHandler=()=>{
+    _twoOptionAlertHandler = () => {
         //function to make two option alert
         Alert.alert(
-          //title
-          'خروج',
-          //body
-          'آیا میخواهید خارج شوید؟',
-          [
-          
-            {text: 'خیر', onPress: () => console.log('No Pressed'), style: 'cancel'},
-            {
-                text: 'بله',
-                onPress: () => {
-                  AsyncStorage.clear();
-                  this.props.navigation.navigate('Auth');
-                  console.log('logout');
+            //title
+            'خروج',
+            //body
+            'آیا میخواهید خارج شوید؟',
+            [
+
+                { text: 'خیر', onPress: () => console.log('No Pressed'), style: 'cancel' },
+                {
+                    text: 'بله',
+                    onPress: () => {
+                        AsyncStorage.clear();
+                        this.props.navigation.navigate('Auth');
+                        console.log('logout');
+                    },
                 },
-              },
-          ],
-          { cancelable: false }
-          //clicking out side of alert will not cancel
+            ],
+            { cancelable: false }
+            //clicking out side of alert will not cancel
         );
-      }
+    }
 
 
 
@@ -60,7 +60,7 @@ export default class TransactionList extends Component {
         data: '',
     }
 
-    
+
 
 
     constructor(props) {
@@ -73,7 +73,7 @@ export default class TransactionList extends Component {
         }
         this.initUser()
 
-        this.Hello();
+        this.GetToken();
     }
 
 
@@ -102,14 +102,11 @@ export default class TransactionList extends Component {
 
 
 
-    Hello = async (test) => {
+    GetToken = async (test) => {
         token = await AsyncStorage.getItem('@MyApp_user');
         obj = JSON.parse(token);
         await this.transactionList(obj.id_token);
     }
-
-
-
 
     setUserData(userdata) {
         this.setState({ user: userdata })
@@ -138,15 +135,15 @@ export default class TransactionList extends Component {
         obj = JSON.parse(token);
         await this.fetchdata(obj.id_token);
     }
-    
+
     ListEmptyView = () => {
         return (
-               
+
             <Text style={styles.EmptyTransaction}> لیست تراکنش های شما خالی است</Text>
 
         );
-      }
-      handleBackButtonClick() {
+    }
+    handleBackButtonClick() {
         this.props.navigation.goBack(null);
         return true;
     }
@@ -154,67 +151,67 @@ export default class TransactionList extends Component {
 
 
     render() {
-    
+
         return (
             <View style={styles.mainBody}>
 
                 <View style={styles.SectionStyle}>
                     <KeyboardAvoidingView enabled>
 
-                    
-<TouchableOpacity onPress={this.handleBackButtonClick}>
-<Image
-                            source={require('../Image/BackIconBlack.png')}
-                            style={{
-                                width:30,
-                                height:30,
-                                resizeMode: 'contain',
-                            }}
-                        />
-    
-</TouchableOpacity>
+
+                        <TouchableOpacity onPress={this.handleBackButtonClick}>
+                            <Image
+                                source={require('../Image/BackIconBlack.png')}
+                                style={{
+                                    width: 30,
+                                    height: 30,
+                                    resizeMode: 'contain',
+                                }}
+                            />
+
+                        </TouchableOpacity>
 
 
 
                         <Image
                             source={require('../Image/TransactionList/ProfilePictures.png')}
                             style={{
-                                width:'100%',
+                                width: '100%',
                                 resizeMode: 'contain',
                             }}
                         />
                         <Text
-                            style={{fontFamily:"IRANSans", textAlign: 'center', fontSize: 20, color: '#1e5c2e',marginBottom:12}}> {this.state.user.firstName} {this.state.user.lastName}</Text>
+                            style={{ fontFamily: "IRANSans", textAlign: 'center', fontSize: 20, color: '#1e5c2e', marginBottom: 12 }}> {this.state.user.firstName} {this.state.user.lastName}</Text>
                         <View style={styles.TwoButton}>
                             <TouchableOpacity style={styles.ExitButton} onPress={this._twoOptionAlertHandler}>
-                            <Text style={{fontFamily:"IRANSans", color: '#1e5c2e', fontSize: 13,marginRight:'auto',marginLeft:'auto'}}>خروج از حساب کاربری</Text>
+                                <Text style={{ fontFamily: "IRANSans", color: '#1e5c2e', fontSize: 13, marginRight: 'auto', marginLeft: 'auto' }}>خروج از حساب کاربری</Text>
                                 <Image
-                                source={require('../Image/TransactionList/ExitIcon.png')}
-                                style={{
-                                    marginTop:7,
-                                    marginRight:15,
-                                resizeMode: 'contain',
-                                }}
-                            />
-                                
+                                    source={require('../Image/TransactionList/ExitIcon.png')}
+                                    style={{
+                                        marginTop: 7,
+                                        marginRight: 15,
+                                        resizeMode: 'contain',
+                                    }}
+                                />
+
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.CallButton}>
-                            <Text style={{fontFamily:"IRANSans", color: '#ffffff', fontSize: 13,marginRight:'auto',marginLeft:'auto' }}>تماس با پشتیبانی</Text>
+                                <Text style={{ fontFamily: "IRANSans", color: '#ffffff', fontSize: 13, marginRight: 'auto', marginLeft: 'auto' }}>تماس با پشتیبانی</Text>
                                 <Image
-                                source={require('../Image/TransactionList/Callicon.png')}
-                                style={{
-                                marginTop:7,
-                                marginRight:15,
-                            resizeMode: 'contain',
-                                }}
-                            />
-                            
+                                    source={require('../Image/TransactionList/Callicon.png')}
+                                    style={{
+                                        marginTop: 7,
+                                        marginRight: 15,
+                                        resizeMode: 'contain',
+                                    }}
+                                />
+
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontFamily:"IRANSans_Bold", color: '#1e5c2e', fontSize: 20,marginRight: 12,marginTop:30,marginBottom:30 }}>تراکنش های من</Text>
-                   
+                        <Text style={{ fontFamily: "IRANSans_Bold", color: '#1e5c2e', fontSize: 20, marginRight: 12, marginTop: 30, marginBottom: 30 }}>تراکنش های من</Text>
+
                         <FlatList
-                      
+
                             data={this.state.data}
 
 
@@ -224,30 +221,29 @@ export default class TransactionList extends Component {
                             renderItem={({ item }) =>
 
                                 <View style={styles.Transactions}
-                        
+
                                 >
                                     <View style={styles.TransactionsDateAmountStyle}>
-                                    <Text style={styles.TransactionsAmountStyle}> {item.amount}
-                                    <Text style={{fontSize:12}}>ریال</Text>
-                                    </Text>
-                            <Text style={styles.TransactionsDateStyle}>{item.createDateFormat}</Text>
-                                    {/* <Text style={styles.RialTransactionStyle}>ریال</Text> */}
-                            
+                                        <Text style={styles.TransactionsAmountStyle}> {item.amount}
+                                            <Text style={{ fontSize: 12 }}>ریال</Text>
+                                        </Text>
+                                        <Text style={styles.TransactionsDateStyle}>{item.createDateFormat}</Text>
+
                                     </View>
-                                
+
                                     <Text style={styles.TransactionsTextStyle}>{item.type.description}</Text>
                                     <Image style={styles.TransactionsIconStyle}
                                         source={require('../Image/PaymenType/SadaghatIcon.png')}
                                     />
-                                    
+
                                 </View>
                             }
                         />
 
-                        
+
 
                     </KeyboardAvoidingView>
-                   
+
 
                 </View>
             </View>
@@ -284,7 +280,7 @@ const styles = StyleSheet.create({
     },
     ExitButton: {
         flex: 1,
-        flexDirection:'row',
+        flexDirection: 'row',
         marginHorizontal: 5,
         padding: 8,
         backgroundColor: '#fff',
@@ -303,7 +299,7 @@ const styles = StyleSheet.create({
     },
     CallButton: {
         flex: 1,
-        flexDirection:'row',
+        flexDirection: 'row',
         marginHorizontal: 5,
         padding: 8,
         backgroundColor: '#1e5c2e',
@@ -312,8 +308,6 @@ const styles = StyleSheet.create({
     Transactions: {
         margin: 12,
         flexDirection: 'row',
-        paddingBottom: 15,
-        paddingTop: 15,
         borderBottomColor: '#cccccc',
         borderBottomWidth: 1,
         margin: 12
@@ -333,25 +327,25 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         color: '#1e5c2e',
         fontSize: 20,
-        fontFamily:"IRANSansFaNum"
+        fontFamily: "IRANSansFaNum"
     },
     RialTransactionStyle: {
         color: '#1e5c2e',
         marginRight: 5,
         marginTop: 5,
-        fontFamily:"IRANSans"
+        fontFamily: "IRANSans"
     },
-    EmptyTransaction:{
-        textAlign:'center',
-        fontSize:14,
-        color:'#aaaaaa',
-        margin:20,
-        fontFamily:"IRANSans_Bold"
-        
+    EmptyTransaction: {
+        textAlign: 'center',
+        fontSize: 14,
+        color: '#aaaaaa',
+        margin: 20,
+        fontFamily: "IRANSans_Bold"
+
     },
-    TransactionsDateStyle:{
-        fontFamily:'IRANSANS',
-        fontSize:15,
-        color:'#666666'
+    TransactionsDateStyle: {
+        fontFamily: 'IRANSANS',
+        fontSize: 15,
+        color: '#666666'
     }
 });
