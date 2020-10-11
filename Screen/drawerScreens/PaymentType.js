@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import baseUrl from "../../app.json"
+
 
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 

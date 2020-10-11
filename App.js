@@ -12,7 +12,17 @@ import { createStackNavigator } from 'react-navigation-stack';
 import SplashScreen from './Screen/SplashScreen';
 import LoginScreen from './Screen/LoginScreen';
 import RegisterScreen from './Screen/RegisterScreen';
+import OTPScreen from './Screen/OTPScreen';
+import LoginOtpScreen from './Screen/LoginOtpScreen';
 import DrawerNavigationRoutes from './Screen/DrawerNavigationRoutes';
+import PaymentType from './Screen/drawerScreens/PaymentType';
+import HomeScreen from './Screen/drawerScreens/HomeScreen';
+import NozooratPayment from './Screen/drawerScreens/NozooratPayment';
+import SadaghatPayment from './Screen/drawerScreens/SadaghatPayment';
+import VojoohatPayment from './Screen/drawerScreens/VojoohatPayment';
+import TransactionList from './Screen/drawerScreens/TransactionList';
+import OtpResetPassword from './Screen/OtpResetPassword';
+import ResetPassword from './Screen/ResetPassword';
 
 
 
@@ -35,6 +45,69 @@ const Auth = createStackNavigator({
       headerTintColor: '#fff',
     },
   },
+  OTPScreen: {
+    screen: OTPScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  PaymentType: {
+    screen: PaymentType,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  HomeScreen: {
+    screen: HomeScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  NozooratPayment: {
+    screen: NozooratPayment,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  SadaghatPayment: {
+    screen: SadaghatPayment,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  VojoohatPayment: {
+    screen: VojoohatPayment,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  TransactionList: {
+    screen: TransactionList,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  LoginOtpScreen: {
+    screen: LoginOtpScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  OtpResetPassword: {
+    screen: OtpResetPassword,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  ResetPassword: {
+    screen: ResetPassword,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  
+  
+  
 });
 
 /* Switch Navigator for those screens which needs to be switched only once

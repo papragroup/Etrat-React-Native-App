@@ -11,7 +11,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 //Import External Screens
 import HomeScreen from './drawerScreens/HomeScreen';
 import SadaghatPayment from './drawerScreens/SadaghatPayment';
-import PaymentType from './drawerScreens/PaymentType';
+// import PaymentType from './drawerScreens/PaymentType';
 import TransactionList from './drawerScreens/TransactionList';
 import NozooratPayment from './drawerScreens/NozooratPayment';
 import VojoohatPayment from './drawerScreens/VojoohatPayment';
@@ -58,19 +58,19 @@ const SecoundActivity_StackNavigator = createStackNavigator({
     }),
   },
 });
-const TripleActivity_StackNavigator = createStackNavigator({
-  First: {
-    screen: PaymentType,
-    navigationOptions: ({ navigation }) => ({
-      title: 'انتخاب نوع پرداخت',
-      headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#1e5c2e',
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
+// const TripleActivity_StackNavigator = createStackNavigator({
+//   First: {
+//     screen: PaymentType,
+//     navigationOptions: ({ navigation }) => ({
+//       title: 'انتخاب نوع پرداخت',
+//       headerRight: () => <NavigationDrawerHeader navigationProps={navigation} />,
+//       headerStyle: {
+//         backgroundColor: '#1e5c2e',
+//       },
+//       headerTintColor: '#fff',
+//     }),
+//   },
+// });
 const FourActivity_StackNavigator = createStackNavigator({
   First: {
     screen: TransactionList,
@@ -127,12 +127,12 @@ const DrawerNavigatorRoutes = createDrawerNavigator(
         drawerLabel: 'SadaghatPayment',
       },
     },
-    PaymentType: {
-      screen: TripleActivity_StackNavigator,
-      navigationOptions: {
-        drawerLabel: 'PaymentType',
-      },
-    },
+    // PaymentType: {
+    //   screen: TripleActivity_StackNavigator,
+    //   navigationOptions: {
+    //     drawerLabel: 'PaymentType',
+    //   },
+    // },
     TransactionList: {
       screen: FourActivity_StackNavigator,
       navigationOptions: {

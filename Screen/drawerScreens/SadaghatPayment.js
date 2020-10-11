@@ -1,21 +1,15 @@
 import React, { Component } from "react";
 import baseUrl from "../../app.json"
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
-  Alert,
   Linking,
-  Style,
   Image,
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  ImageBackground,
-  NumricInput
 } from "react-native";
 
 import { Value } from "react-native-reanimated";
@@ -47,7 +41,6 @@ export default class SadaghatPayment extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         this.setState({ user: responseJson });
       })
       .catch((error) => {
@@ -367,15 +360,14 @@ const styles = StyleSheet.create({
 
   },
   SelectText: {
-    marginRight: 12,
-    marginTop: 12,
+    margin: 18,
     flex: 1,
     color: '#aaaaaa',
     fontSize: 13,
     fontFamily: "IRANSans_Bold"
   },
   inputStyle: {
-    margin: 12,
+    margin: 18,
     backgroundColor: '#fff',
     borderWidth: 0,
     borderRadius: 7,
@@ -400,12 +392,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   AmountButton: {
-    margin: 12,
+    margin: 18,
     textAlign: 'center',
     alignItems: 'center',
     flex: 1,
-    width: '100%',
-    height: 110,
+    height: 100,
     backgroundColor: '#fff',
     borderRadius: 7,
     borderRadius: 10,
@@ -426,25 +417,22 @@ const styles = StyleSheet.create({
   },
   AmountButtonTextStyle: {
     color: '#1e5c2e',
-    fontSize: 13,
+    fontSize: 10,
     fontFamily: "IRANSans",
     textAlignVertical: 'center',
     textAlign: 'center',
     width: '100%',
-
-
-
   },
   AmountButtonNumStyle: {
     fontFamily: "IRANSansFaNumBold",
     textAlign: 'center',
     color: '#1e5c2e',
-    fontSize: 23,
+    fontSize: 20,
     marginTop: 18,
     width: 200,
   },
   buttonStyle: {
-    margin: 12,
+    margin: 18,
     backgroundColor: '#26d142',
     borderWidth: 0,
     color: '#ffffff',

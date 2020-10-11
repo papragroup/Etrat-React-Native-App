@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import baseUrl from "../app.json"
+import NumberFormat from 'react-number-format';
 
 
 
@@ -31,12 +32,7 @@ const LoginScreen = props => {
 
 
 
-
-
-
-
-
-
+  
   const handleSubmitPress = () => {
 
     setErrortext('');
@@ -57,23 +53,25 @@ const LoginScreen = props => {
         //Header Defination
         'Content-Type': 'application/json',
       },
-    }).then(response => response.json())
-      .then(responseJson => {
-        //Hide Loader
-        setLoading(false);
-        if (responseJson.status >= 400) {
+    })
+    .then(response => response.json())
+    
+    .then(responseJson => {
+      //Hide Loader
+      setLoading(false);
+      if (responseJson.status >= 400) {
 
-          setErrortext('نام کاربری یا کلمه عبور اشتباه است!');
+        setErrortext('نام کاربری یا کلمه عبور اشتباه است!');
 
 
 
-        } else {
-          props.navigation.navigate('HomeScreen');
-        }
-        const token = responseJson.id_token;
-        mergeUsers(responseJson);
+      } else {
+        props.navigation.navigate('HomeScreen');
+      }
+      const token = responseJson.id_token;
+      mergeUsers(responseJson);
 
-      })
+    })
       .catch(error => {
         //Hide Loader
         setLoading(false);
@@ -106,6 +104,7 @@ const LoginScreen = props => {
             }}
           />
           <Text style={styles.SloganStyle}>عترت خانه سادات است</Text>
+          
           <TextInput
             style={styles.inputStyle}
             onChangeText={UserName => setUserName(UserName)}
@@ -120,6 +119,7 @@ const LoginScreen = props => {
             // }
             blurOnSubmit={false}
           />
+          {/* <NumberFormat value={2456981} displayType={'text'} thousandSeparator={true} prefix={'$'} /> */}
           <TextInput
             style={styles.inputStyle}
             onChangeText={UserPassword => setUserPassword(UserPassword)}
@@ -138,8 +138,11 @@ const LoginScreen = props => {
           ) : null}
 
 <View style={styles.ForgetPasswordStyle}>
-            <TouchableOpacity >
-
+            <TouchableOpacity 
+            
+            onPress={() => props.navigation.navigate('ResetPassword')}
+            >
+            
               <Text style={{ fontFamily: "IRANSans_Bold", color: '#ffffff' }}>بازیابی رمز عبور</Text>
             </TouchableOpacity>
 
@@ -158,6 +161,7 @@ const LoginScreen = props => {
           <Text style={styles.border}></Text>
           <TouchableOpacity
             style={styles.GuestbuttonStyle}
+            onPress={() => props.navigation.navigate('OTPScreen')}
             // activeOpacity={0.5}
             // onPress={handleSubmitPress}
             // disabled={!handleSubmitPress}
@@ -197,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderColor: 'white',
     textAlign: 'right',
-
+    fontFamily:'IRANSansFaNum',
   },
   errorTextStyle: {
     margin: 12,

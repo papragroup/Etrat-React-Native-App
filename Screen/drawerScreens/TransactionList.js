@@ -44,7 +44,7 @@ export default class TransactionList extends Component {
                     text: 'بله',
                     onPress: () => {
                         AsyncStorage.clear();
-                        this.props.navigation.navigate('Auth');
+                        this.props.navigation.navigate('LoginScreen');
                         console.log('logout');
                     },
                 },
@@ -56,19 +56,12 @@ export default class TransactionList extends Component {
 
 
 
-    state = {
-        data: '',
-    }
-
-
-
-
     constructor(props) {
 
         super(props)
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         this.state = {
-            data: '',
+            data: [],
             user: ''
         }
         this.initUser()
@@ -92,7 +85,6 @@ export default class TransactionList extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({ data: responseJson });
-                console.log(this.state.data);
             })
             .catch((error) => {
                 console.error(error);
@@ -122,7 +114,6 @@ export default class TransactionList extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({ user: responseJson });
             })
             .catch((error) => {
@@ -315,6 +306,7 @@ const styles = StyleSheet.create({
     TransactionsTextStyle: {
         flex: 1,
         marginRight: 10,
+        marginTop:5,
         fontSize: 20,
         color: "#888",
         fontWeight: 'bold'
@@ -322,6 +314,7 @@ const styles = StyleSheet.create({
     TransactionsIconStyle: {
         width: 25,
         height: 25,
+        marginTop:5,
     },
     TransactionsAmountStyle: {
         marginRight: 'auto',

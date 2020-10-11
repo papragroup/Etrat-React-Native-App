@@ -12,27 +12,22 @@ export default class HomeScreen extends Component {
 
 
 
-
-
-  state = {
-    data: '',
-
-  }
-
-
   constructor(props) {
 
     super(props)
     this.state = {
-      data: '',
-      user: ''
+      data: [],
+      user: '',
+      isFetching: false,
     }
     this.initUser()
 
     this.GetToken();
   }
 
-
+  onRefresh() {
+    this.setState({isFetching: true,},() => {this.GetToken();});
+}
 
   transactionList = (token) => {
     var header = 'Bearer '.concat(token);
@@ -59,6 +54,7 @@ export default class HomeScreen extends Component {
     token = await AsyncStorage.getItem('@MyApp_user');
     obj = JSON.parse(token);
     await this.transactionList(obj.id_token);
+    this.setState({ isFetching: false })
   }
 
 
@@ -106,7 +102,12 @@ export default class HomeScreen extends Component {
 
 
 
-        <View style={styles.SectionStyle}>
+        <View style={styles.SectionStyle}
+        
+       
+
+        >
+          
 
           <ScrollView keyboardShouldPersistTaps="handled">
 
@@ -145,30 +146,27 @@ export default class HomeScreen extends Component {
                 <Text style={{ fontFamily: "IRANSans", textAlign: 'center', fontSize: 13, color: '#ffffff', marginRight: 6 }} >ریال</Text>
                 </Text>
 
-
               </View>
               <View style={styles.LastTransaction}>
 
                 <Text style={{ fontFamily: "IRANSans_Bold", margin: 10, color: '#1e5c2e', fontSize: 15, textAlign: 'center' }}>تراکنش های آخر</Text>
                 <FlatList
                   data={this.state.data}
-                  keyExtractor={item => this.state.data.toString()}
+                  onRefresh={() => this.onRefresh()}
+                  refreshing={this.state.isFetching}
                   ListEmptyComponent={this.ListEmptyView}
                   renderItem={({ item }) =>
                     <View style={styles.Transaction}>
 
-                      <View style={styles.TransactionsAmountDateStyle}>
+                      {/* <View style={styles.TransactionsAmountDateStyle}> */}
                         <Text style={styles.TransactionsAmountStyle}> {item.amount} </Text>
-                        <Text style={styles.TransactionsDateStyle}>12/21/2019</Text>
-                      </View>
-
+                        {/* <Text style={styles.TransactionsDateStyle}>12/21/2019</Text> */}
+                      {/* </View> */}
                       <Text style={styles.TransactionsBorderStyle}></Text>
                       <Text style={styles.TransactionsTextStyle}>{item.type.description}</Text>
 
                     </View>
-
                   }
-
 
                 />
 
@@ -372,7 +370,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#1e5c2e",
     fontFamily: "IRANSans",
-    marginTop: 12
+    
   },
   TransactionsAmountStyle: {
     flex: 1,
