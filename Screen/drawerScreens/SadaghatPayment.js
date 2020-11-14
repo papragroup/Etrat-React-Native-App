@@ -493,7 +493,7 @@ const styles = StyleSheet.create({
   },
   SadaghatCardText: {
     color: '#ffffff',
-    fontSize: 28,
+    fontSize: 23,
     fontFamily: "IRANSans"
   },
   Profile: {

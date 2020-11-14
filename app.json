@@ -1,5 +1,5 @@
 {
   "name": "ProjectName",
   "displayName": "ProjectName",
-  "baseUrl":"http://192.168.101.221:8080/"
+  "baseUrl":"http://payment.etrat-fatemi.com:8080"
 }

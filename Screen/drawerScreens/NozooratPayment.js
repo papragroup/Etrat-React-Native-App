@@ -483,7 +483,7 @@ const styles = StyleSheet.create({
   },
   NozooratCardText: {
     color: '#ffffff',
-    fontSize: 28,
+    fontSize: 23,
     fontFamily: "IRANSans",
     textAlign: 'center',
     width: 80,

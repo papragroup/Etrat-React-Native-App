@@ -31,7 +31,7 @@ export default class OTPScreen extends Component {
 
 
   onPress = (phone) => {
-    fetch(baseUrl.baseUrl.concat('api/verify?otp=').concat(this.state.otp).concat("&phone-number=").concat(phone), {
+    fetch(baseUrl.baseUrl.concat('/api/verify?otp=').concat(this.state.otp).concat("&phone-number=").concat(phone), {
       method: 'GET',
       headers: {
         //Header Defination
@@ -132,7 +132,7 @@ export default class OTPScreen extends Component {
 
             />
             <CountDown
-              until={60 * 0 +10}
+              until={60 * 2 + 0}
               size={20}
               onFinish={() => this.endCountDown}
               digitStyle={{ backgroundColor: '#FFF' }}
@@ -143,7 +143,7 @@ export default class OTPScreen extends Component {
             />
 
 
-
+{/* 
             <View style={styles.ResendthCode}>
               <TouchableOpacity >
 
@@ -155,7 +155,7 @@ export default class OTPScreen extends Component {
 
               <Text style={{ fontFamily: "IRANSans", color: '#aaaaaa', marginLeft: 4, marginTop: 2 }}>   کد را دریافت نکرده اید ؟</Text>
 
-            </View>
+            </View> */}
             <TouchableOpacity
               style={styles.buttonStyle}
               activeOpacity={0.5}

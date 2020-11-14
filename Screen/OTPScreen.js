@@ -19,7 +19,7 @@ export default class OTPScreen extends Component {
     onPress = () => {
         // this.props.navigation.navigate('LoginOtpScreen');
         this.mergeUsers();
-        fetch(baseUrl.baseUrl.concat('api/send-otp?phone-number=').concat(this.state.phone), {
+        fetch(baseUrl.baseUrl.concat('/api/send-otp?phone-number=').concat(this.state.phone), {
             method: 'GET'
             
             //Request Type 

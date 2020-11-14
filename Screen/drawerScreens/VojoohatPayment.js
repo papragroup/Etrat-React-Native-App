@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
   },
   vojoohatCardText: {
     color: '#ffffff',
-    fontSize: 28,
+    fontSize: 23,
     fontFamily: "IRANSans"
   },
   SadaghatCardText: {
